@@ -49,6 +49,11 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
+
+        /* Слайдер в карточках кейсов */
+        .case-slider .case-nav {
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden">
@@ -481,9 +486,19 @@
             <div class="grid md:grid-cols-2 gap-6 lg:gap-8 mb-8 lg:mb-12">
                 <!-- Кейс 1 (Матвеевский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
-                    <div class="h-48 sm:h-56 lg:h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Матвеевский парк" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]'">
+                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
+                         data-images="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_2_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_3_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_4_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_5_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_6_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_7_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_8_2026-02-28_11-15-29.jpg"
+                         data-alt="Студия ЖК Матвеевский парк"
+                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg" alt="Студия ЖК Матвеевский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                        <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button type="button" class="case-nav next absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Следующее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                        <div class="case-dots absolute bottom-3 right-3 flex items-center gap-1.5"></div>
                     </div>
                     <div class="p-5 lg:p-8">
                         <h3 class="text-lg lg:text-2xl font-bold !text-[#000000] mb-2">ЖК «Матвеевский парк»</h3>
@@ -504,9 +519,19 @@
 
                 <!-- Кейс 2 (Никольские луга) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
-                    <div class="h-48 sm:h-56 lg:h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Никольские луга" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]'">
+                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
+                         data-images="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         data-alt="Студия ЖК Никольские луга"
+                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]">
+                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Никольские луга" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                        <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button type="button" class="case-nav next absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Следующее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                        <div class="case-dots absolute bottom-3 right-3 flex items-center gap-1.5"></div>
                     </div>
                     <div class="p-5 lg:p-8">
                         <h3 class="text-lg lg:text-2xl font-bold !text-[#000000] mb-2">ЖК «Никольские луга»</h3>
@@ -527,9 +552,19 @@
                 
                 <!-- Кейс 3 (Амурский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
-                    <div class="h-48 sm:h-56 lg:h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1502672260266-1c1de2d96674?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Амурский парк" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Студия]'">
+                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
+                         data-images="https://images.unsplash.com/photo-1502672260266-1c1de2d96674?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         data-alt="Студия ЖК Амурский парк"
+                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Студия]">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1de2d96674?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Амурский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Студия]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                        <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button type="button" class="case-nav next absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Следующее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                        <div class="case-dots absolute bottom-3 right-3 flex items-center gap-1.5"></div>
                     </div>
                     <div class="p-5 lg:p-8">
                         <h3 class="text-lg lg:text-2xl font-bold !text-[#000000] mb-2">ЖК «Амурский парк»</h3>
@@ -550,9 +585,19 @@
 
                 <!-- Кейс 4 (Михайловский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
-                    <div class="h-48 sm:h-56 lg:h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Евро-2 ЖК Михайловский парк" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]'">
+                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
+                         data-images="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         data-alt="Евро-2 ЖК Михайловский парк"
+                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]">
+                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Евро-2 ЖК Михайловский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                        <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button type="button" class="case-nav next absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Следующее фото">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                        <div class="case-dots absolute bottom-3 right-3 flex items-center gap-1.5"></div>
                     </div>
                     <div class="p-5 lg:p-8">
                         <h3 class="text-lg lg:text-2xl font-bold !text-[#000000] mb-2">ЖК «Михайловский парк»</h3>
@@ -594,7 +639,7 @@
             <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
                 <div class="w-full lg:w-1/2 relative fade-up max-w-sm mx-auto lg:max-w-none">
                     <div class="absolute -inset-3 lg:-inset-4 !bg-[#fdf8f6] rounded-3xl -z-10 transform -rotate-3 transition-transform hover:rotate-0 duration-500"></div>
-                    <img src="assets/img/photo_2026-02-18_09-31-33.jpg" alt="Роман Волосков" class="rounded-2xl shadow-xl w-full object-cover aspect-square sm:aspect-[4/5] lg:aspect-auto" onerror="this.src='https://via.placeholder.com/800x1000?text=[Image+of+Роман+Волосков]'">
+                    <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/photo_2026-02-18_09-31-33.jpg" alt="Роман Волосков" class="rounded-2xl shadow-xl w-full object-cover aspect-square sm:aspect-[4/5] lg:aspect-auto" onerror="this.src='https://via.placeholder.com/800x1000?text=[Image+of+Роман+Волосков]'">
                 </div>
                 <div class="w-full lg:w-1/2 fade-up delay-100">
                     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-4 lg:mb-6 text-center lg:text-left">Знаем, как сделать так, чтобы квартира приносила максимум денег.</h2>
@@ -606,7 +651,6 @@
                         <p class="font-bold !text-[#a36851]">KEYFORT — это умный хоумстейджинг и меблировка, которые приносят вам максимальную прибыль при адекватных вложениях».</p>
                     </div>
                     
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_placeholder.svg" alt="Подпись" class="h-8 lg:h-12 mt-6 mx-auto lg:mx-0 opacity-60" onerror="this.src='https://via.placeholder.com/150x50?text=[Signature]'">
                 </div>
             </div>
         </div>
@@ -810,7 +854,120 @@
 
         document.querySelectorAll('.fade-up').forEach((el) => { observer.observe(el); });
 
-        // 3. Exit-Intent и Timed Pop-up
+        // 3. Слайдеры в блоке кейсов
+        function initCaseSliders() {
+            const sliders = document.querySelectorAll('.case-slider');
+
+            sliders.forEach((slider) => {
+                const img = slider.querySelector('.case-slider-image');
+                const prevBtn = slider.querySelector('.case-nav.prev');
+                const nextBtn = slider.querySelector('.case-nav.next');
+                const dotsWrap = slider.querySelector('.case-dots');
+                const altText = slider.dataset.alt || '';
+                const fallback = slider.dataset.fallback || '';
+                const images = (slider.dataset.images || '')
+                    .split('|')
+                    .map((item) => item.trim())
+                    .filter(Boolean);
+
+                if (!img || images.length === 0) return;
+
+                let currentIndex = 0;
+                let autoplayTimer = null;
+
+                function updateSlide() {
+                    img.src = images[currentIndex];
+                    img.alt = altText;
+                    if (fallback) {
+                        img.onerror = function () {
+                            this.onerror = null;
+                            this.src = fallback;
+                        };
+                    }
+
+                    if (dotsWrap) {
+                        dotsWrap.querySelectorAll('button').forEach((dot, index) => {
+                            dot.classList.toggle('bg-white', index === currentIndex);
+                            dot.classList.toggle('bg-white/50', index !== currentIndex);
+                        });
+                    }
+                }
+
+                function goNext() {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    updateSlide();
+                }
+
+                function goPrev() {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    updateSlide();
+                }
+
+                function stopAutoplay() {
+                    if (!autoplayTimer) return;
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+
+                function startAutoplay() {
+                    if (images.length < 2) return;
+                    autoplayTimer = setInterval(goNext, 4500);
+                }
+
+                function restartAutoplay() {
+                    stopAutoplay();
+                    startAutoplay();
+                }
+
+                if (dotsWrap) {
+                    dotsWrap.innerHTML = '';
+                    images.forEach((_, index) => {
+                        const dot = document.createElement('button');
+                        dot.type = 'button';
+                        dot.className = index === 0 ? 'w-2 h-2 rounded-full bg-white transition' : 'w-2 h-2 rounded-full bg-white/50 transition';
+                        dot.setAttribute('aria-label', `Фото ${index + 1}`);
+                        dot.addEventListener('click', () => {
+                            currentIndex = index;
+                            updateSlide();
+                            restartAutoplay();
+                        });
+                        dotsWrap.appendChild(dot);
+                    });
+                }
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        goNext();
+                        restartAutoplay();
+                    });
+                }
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        goPrev();
+                        restartAutoplay();
+                    });
+                }
+
+                slider.addEventListener('mouseenter', stopAutoplay);
+                slider.addEventListener('mouseleave', startAutoplay);
+                slider.addEventListener('touchstart', stopAutoplay, { passive: true });
+                slider.addEventListener('touchend', startAutoplay);
+
+                if (images.length < 2) {
+                    if (prevBtn) prevBtn.classList.add('hidden');
+                    if (nextBtn) nextBtn.classList.add('hidden');
+                    if (dotsWrap) dotsWrap.classList.add('hidden');
+                }
+
+                updateSlide();
+                startAutoplay();
+            });
+        }
+
+        initCaseSliders();
+
+        // 4. Exit-Intent и Timed Pop-up
         let popupShown = sessionStorage.getItem('exitPopupShown');
         let lastScrollTime = Date.now();
         const pageLoadTime = Date.now();

@@ -122,6 +122,48 @@
             background: #c08267;
             transform: scale(1.08);
         }
+        /* RUNNING LINE START (UPDATED 2026-03-01) */
+        #running-line {
+            background: #b37f64;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(45, 42, 38, 0.08);
+            overflow: hidden;
+            position: relative;
+            z-index: 15;
+        }
+        #running-line .marquee-track {
+            display: flex;
+            width: max-content;
+            white-space: nowrap;
+            will-change: transform;
+            animation: running-line 18s linear infinite;
+        }
+        #running-line .marquee-line {
+            display: flex;
+            align-items: center;
+            gap: 1.15rem;
+            padding: 0.56rem 0;
+            padding-right: 1.15rem;
+            color: #f9efe8;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+            font-size: 0.84rem;
+            font-weight: 800;
+            line-height: 1.05;
+        }
+        #running-line .marquee-dot {
+            color: rgba(249, 239, 232, 0.72);
+        }
+        @keyframes running-line {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #running-line .marquee-track {
+                animation: none;
+            }
+        }
+        /* RUNNING LINE END */
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden pb-24 sm:pb-20">
@@ -231,6 +273,49 @@
             </div>
         </div>
     </section>
+
+    <!-- RUNNING LINE START (UPDATED 2026-03-01) -->
+    <section id="running-line" aria-label="Ключевые направления">
+        <div class="marquee-track">
+            <p class="marquee-line">
+                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
+                <span class="marquee-dot">•</span>
+                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
+                <span class="marquee-dot">•</span>
+                <span>ХОУМСТЕЙДЖИНГ</span>
+                <span class="marquee-dot">•</span>
+                <span>СДАЧА В АРЕНДУ</span>
+                <span class="marquee-dot">•</span>
+                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
+                <span class="marquee-dot">•</span>
+                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
+                <span class="marquee-dot">•</span>
+                <span>ХОУМСТЕЙДЖИНГ</span>
+                <span class="marquee-dot">•</span>
+                <span>СДАЧА В АРЕНДУ</span>
+                <span class="marquee-dot">•</span>
+            </p>
+            <p class="marquee-line" aria-hidden="true">
+                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
+                <span class="marquee-dot">•</span>
+                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
+                <span class="marquee-dot">•</span>
+                <span>ХОУМСТЕЙДЖИНГ</span>
+                <span class="marquee-dot">•</span>
+                <span>СДАЧА В АРЕНДУ</span>
+                <span class="marquee-dot">•</span>
+                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
+                <span class="marquee-dot">•</span>
+                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
+                <span class="marquee-dot">•</span>
+                <span>ХОУМСТЕЙДЖИНГ</span>
+                <span class="marquee-dot">•</span>
+                <span>СДАЧА В АРЕНДУ</span>
+                <span class="marquee-dot">•</span>
+            </p>
+        </div>
+    </section>
+    <!-- RUNNING LINE END -->
 
     <!-- БЛОК 2: Боли аудитории -->
     <section class="content-section py-12 lg:py-20 bg-[#fdf9f6]">

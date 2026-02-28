@@ -1,175 +1,190 @@
-<!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEYFORT — Меблировка и обустройство квартир под ключ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fdf8f6',
-                            100: '#f2e8e5',
-                            500: '#c08267',
-                            600: '#a36851',
-                            900: '#2d2a26',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+<!-- Tailwind CSS и Настройки -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: {
+                        50: '#fdf8f6',
+                        100: '#f2e8e5',
+                        500: '#c08267',
+                        600: '#a36851',
+                        900: '#2d2a26',
                     }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'system-ui', 'sans-serif'],
                 }
             }
         }
-    </script>
-    <style>
-        /* Глобальное уменьшение масштаба всего сайта до 85% */
-        html {
-            font-size: 85%;
-        }
+    }
+</script>
 
-        /* Плавное открытие FAQ */
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        
-        /* Классы для анимации при скролле */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Задержки для карточек */
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
+<style>
+    /* Глобальное уменьшение масштаба всего сайта до 85% */
+    html {
+        font-size: 85%;
+    }
 
-        /* Слайдер в карточках кейсов */
-        .case-slider {
-            aspect-ratio: 1 / 1;
-        }
-        .case-slider .case-nav {
-            pointer-events: auto;
-        }
+    /* Плавное открытие FAQ */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    
+    /* Классы для анимации при скролле */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Задержки для карточек */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
 
-        /* Маркеры секций и подсветка текущего блока */
-        .section-kicker {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.35rem;
-            padding: 0.35rem 0.9rem;
-            border-radius: 9999px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #8d5f4a;
-            background: #f3e5de;
-            border: 1px solid #e9d4c8;
-        }
-        .section-kicker-dark {
-            color: #dcbfae;
-            background: rgba(192, 130, 103, 0.16);
-            border-color: rgba(192, 130, 103, 0.4);
-        }
-        .content-section {
-            position: relative;
-            transition: box-shadow 320ms ease;
-        }
-        .content-section.section-active {
-            box-shadow: inset 0 0 0 1px rgba(192, 130, 103, 0.35);
-        }
-        .content-section.section-dark.section-active {
-            box-shadow: inset 0 0 0 1px rgba(220, 191, 174, 0.4);
-        }
-        #read-progress-track {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            z-index: 60;
-            background: rgba(45, 42, 38, 0.12);
-            pointer-events: none;
-        }
-        #read-progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, #c08267 0%, #a36851 100%);
-            transition: width 100ms linear;
-        }
-        .review-quote {
-            min-height: 7.5rem;
-        }
-        .review-quote-mobile {
-            min-height: 5.5rem;
-        }
-        .review-dot {
-            width: 0.625rem;
-            height: 0.625rem;
-            border-radius: 9999px;
-            background: #d1d5db;
-            transition: background-color 200ms ease, transform 200ms ease;
-        }
-        .review-dot.active {
-            background: #c08267;
-            transform: scale(1.08);
-        }
-        /* RUNNING LINE START (UPDATED 2026-03-01) */
-        #running-line {
-            background: #b37f64;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom: 1px solid rgba(45, 42, 38, 0.08);
-            overflow: hidden;
-            position: relative;
-            z-index: 15;
-        }
-        #running-line .marquee-track {
-            display: flex;
-            width: max-content;
-            white-space: nowrap;
-            will-change: transform;
-            animation: running-line 18s linear infinite;
-        }
-        #running-line .marquee-line {
-            display: flex;
-            align-items: center;
-            gap: 1.15rem;
-            padding: 0.56rem 0;
-            padding-right: 1.15rem;
-            color: #f9efe8;
-            text-transform: uppercase;
-            letter-spacing: 0.11em;
-            font-size: 0.84rem;
-            font-weight: 800;
-            line-height: 1.05;
-        }
-        #running-line .marquee-dot {
-            color: rgba(249, 239, 232, 0.72);
-        }
-        @keyframes running-line {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            #running-line .marquee-track {
-                animation: none;
-            }
-        }
-        /* RUNNING LINE END */
-    </style>
-</head>
-<body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden pb-24 sm:pb-20">
+    /* Бегущая строка (Marquee) */
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+
+    /* Анимации для карточки-лидмагнита */
+    @keyframes shine {
+        0% { transform: translateX(-200%) skewX(-15deg); }
+        20%, 100% { transform: translateX(400%) skewX(-15deg); }
+    }
+    .animate-shine {
+        animation: shine 4s infinite;
+    }
+    @keyframes float-icon {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+    }
+    .animate-float-icon {
+        animation: float-icon 3s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(192, 130, 103, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(192, 130, 103, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(192, 130, 103, 0); }
+    }
+    .animate-pulse-ring {
+        animation: pulse-ring 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+
+    /* Эффект "Шторки" (Image Reveal) */
+    .reveal-curtain {
+        position: relative;
+        overflow: hidden;
+    }
+    .reveal-curtain::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fdf8f6; /* Цвет подложки */
+        transform-origin: right;
+        transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 10;
+    }
+    .reveal-curtain.visible::after {
+        transform: scaleX(0);
+    }
+    .reveal-image {
+        transform: scale(1.15);
+        transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-curtain.visible .reveal-image {
+        transform: scale(1);
+    }
+
+    /* Слайдер в карточках кейсов */
+    .case-slider {
+        aspect-ratio: 1 / 1;
+    }
+    .case-slider .case-nav {
+        pointer-events: auto;
+    }
+
+    /* Маркеры секций и подсветка текущего блока */
+    .section-kicker {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.9rem;
+        border-radius: 9999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #8d5f4a;
+        background: #f3e5de;
+        border: 1px solid #e9d4c8;
+    }
+    .section-kicker-dark {
+        color: #dcbfae;
+        background: rgba(192, 130, 103, 0.16);
+        border-color: rgba(192, 130, 103, 0.4);
+    }
+    .content-section {
+        position: relative;
+        transition: box-shadow 320ms ease;
+    }
+    .content-section.section-active {
+        box-shadow: inset 0 0 0 1px rgba(192, 130, 103, 0.35);
+    }
+    .content-section.section-dark.section-active {
+        box-shadow: inset 0 0 0 1px rgba(220, 191, 174, 0.4);
+    }
+    #read-progress-track {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        z-index: 60;
+        background: rgba(45, 42, 38, 0.12);
+        pointer-events: none;
+    }
+    #read-progress-bar {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #c08267 0%, #a36851 100%);
+        transition: width 100ms linear;
+    }
+    .review-quote { min-height: 7.5rem; }
+    .review-quote-mobile { min-height: 5.5rem; }
+    .review-dot {
+        width: 0.625rem;
+        height: 0.625rem;
+        border-radius: 9999px;
+        background: #d1d5db;
+        transition: background-color 200ms ease, transform 200ms ease;
+    }
+    .review-dot.active {
+        background: #c08267;
+        transform: scale(1.08);
+    }
+</style>
+
+<!-- ОСНОВНОЙ КОНТЕЙНЕР (Заменяет тег body для встраивания) -->
+<div id="keyfort-landing-widget" class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden pb-24 sm:pb-20 relative">
+
     <div id="read-progress-track" aria-hidden="true">
         <div id="read-progress-bar"></div>
     </div>
+    
     <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-1rem)] max-w-sm sm:max-w-md lg:max-w-lg">
         <a href="#request" class="block text-center !bg-[#2d2a26] hover:!bg-[#c08267] !text-white font-bold py-3 px-5 rounded-full shadow-xl shadow-black/20 transition duration-200 text-sm sm:text-base">
             Получить бесплатную консультацию
@@ -186,18 +201,18 @@
                 </div>
                 
                 <!-- Десктопное меню -->
-                <div class="hidden lg:flex space-x-6">
-                    <a href="#services" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">Услуги</a>
-                    <a href="#steps" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">Как работаем</a>
-                    <a href="#tariffs" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">Тарифы</a>
-                    <a href="#cases" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">Кейсы</a>
-                    <a href="#about" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">О нас</a>
-                    <a href="#reviews" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">Отзывы</a>
-                    <a href="#faq" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-sm">FAQ</a>
+                <div class="hidden lg:flex space-x-4 xl:space-x-6">
+                    <a href="#services" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">Услуги</a>
+                    <a href="#steps" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">Как работаем</a>
+                    <a href="#tariffs" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">Тарифы</a>
+                    <a href="#cases" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">Кейсы</a>
+                    <a href="#about" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">О нас</a>
+                    <a href="#reviews" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">Отзывы</a>
+                    <a href="#faq" class="!text-[#000000] hover:!text-[#c08267] font-medium transition text-[13px] xl:text-sm">FAQ</a>
                 </div>
                 
                 <div class="hidden lg:flex">
-                    <a href="#request" class="!bg-[#2d2a26] !text-white px-5 py-2.5 rounded-md font-medium hover:!bg-[#c08267] transition shadow-lg shadow-gray-200 text-sm">Рассчитать стоимость</a>
+                    <a href="#request" class="!bg-[#2d2a26] !text-white px-4 xl:px-5 py-2 xl:py-2.5 rounded-md font-medium hover:!bg-[#c08267] transition shadow-lg shadow-gray-200 text-[13px] xl:text-sm">Рассчитать стоимость</a>
                 </div>
 
                 <!-- Бургер-кнопка (Мобилка) -->
@@ -227,19 +242,19 @@
     </div>
 
     <!-- БЛОК 1: Главный экран -->
-    <section class="relative pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-28 lg:pb-16 overflow-hidden">
-        <div class="absolute inset-0 z-0 scale-105 transform">
-            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Уютная функциональная студия для аренды" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/1920x1080?text=[Image+of+Светлая+функциональная+студия+для+аренды]'">
+    <section class="relative pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 overflow-hidden">
+        <div class="hero-bg-parallax absolute inset-0 z-0 h-[120%] -top-[10%] w-full">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Уютная функциональная студия" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/1920x1080?text=[Светлая+студия]'">
             <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/75 to-gray-900/40 lg:to-transparent"></div>
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div class="w-full lg:w-3/5 text-white fade-up mt-2 lg:mt-0">
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-[1.15] mb-4 lg:mb-5">
-                    <span class="!text-[#c08267]">Меблировка</span> студий и квартир под ключ для жизни и сдачи в аренду за 45 дней.
+                    <span class="!text-[#c08267]">Меблировка</span> студий и квартир под ключ для жизни и сдачи в аренду за 35 дней.
                 </h1>
                 <p class="text-sm sm:text-base lg:text-lg text-gray-200 mb-5 lg:mb-8 max-w-2xl leading-relaxed">
-                    Меблировка квартиры под ключ в Москве: Продумаем эргономику, упакуем объект мебелью и техникой и поможем сдать его дороже рынка.
+                    Упакуем в готовый арендный бизнес или обустроим для комфортной жизни. Специализируемся на компактных площадях (19-25 м²). Продумаем эргономику и полностью обставим квартиру мебелью и техникой под ключ.
                 </p>
                 <ul class="space-y-2.5 lg:space-y-4 mb-8 lg:mb-0 text-gray-300">
                     <li class="flex items-start gap-2.5 sm:gap-3">
@@ -258,64 +273,57 @@
             </div>
 
             <!-- Блок призыва к действию -->
-            <div class="w-full lg:w-2/5 max-w-[420px] mx-auto bg-white p-6 lg:p-8 rounded-2xl shadow-2xl relative text-center flex flex-col justify-center items-center fade-up delay-200 hover:-translate-y-1 transition-transform duration-300">
-                <div class="absolute -top-3 -right-3 !bg-[#c08267] !text-white text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md">Подарок</div>
-                <div class="w-12 h-12 lg:w-14 lg:h-14 !bg-[#fdf8f6] rounded-full flex items-center justify-center !text-[#c08267] mb-3 lg:mb-4 shadow-inner">
-                    <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            <div class="w-full lg:w-2/5 max-w-[420px] mx-auto bg-white p-6 lg:p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative text-center flex flex-col justify-center items-center fade-up delay-200 hover:-translate-y-1 transition-transform duration-300 border border-[#f2e8e5]">
+                
+                <div class="absolute -top-3 -right-3 !bg-[#c08267] !text-white text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-md animate-bounce" style="animation-duration: 2.5s;">Подарок</div>
+                
+                <div class="w-14 h-14 lg:w-16 lg:h-16 !bg-[#fdf8f6] rounded-full flex items-center justify-center !text-[#c08267] mb-4 lg:mb-5 shadow-inner animate-pulse-ring relative">
+                    <svg class="w-7 h-7 lg:w-8 lg:h-8 animate-float-icon drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        <path fill="#c08267" stroke="none" d="M19 3l.8 2.2L22 6l-2.2.8L19 9l-.8-2.2L16 6l2.2-.8L19 3z"></path>
+                    </svg>
+                    <div class="absolute inset-0 rounded-full border border-[#c08267] opacity-30 animate-ping" style="animation-duration: 2.5s;"></div>
                 </div>
+                
                 <h3 class="text-xl lg:text-2xl font-bold !text-[#000000] mb-2">Получите каталог дизайнов</h3>
                 <p class="text-sm !text-[#000000] opacity-80 mb-5 lg:mb-6 leading-relaxed">Оставьте заявку на бесплатный расчет стоимости и получите <span class="font-bold">каталог готовых дизайн-концепций</span> с примерами смет.</p>
                 
-                <a href="#request" class="w-full block !bg-[#c08267] hover:!bg-[#a36851] !text-white font-bold py-3.5 px-4 rounded-xl transition duration-200 shadow-lg shadow-[#c08267]/30 text-sm sm:text-base">
-                    Получить расчет и каталог
+                <a href="#request" class="relative overflow-hidden group w-full block !bg-[#c08267] hover:!bg-[#a36851] !text-white font-bold py-3.5 px-4 rounded-xl transition duration-200 shadow-lg shadow-[#c08267]/40 text-sm sm:text-base">
+                    <span class="relative z-10">Получить расчет и каталог</span>
+                    <div class="absolute inset-0 w-1/4 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shine z-0 pointer-events-none"></div>
                 </a>
                 <p class="text-[11px] !text-[#000000] opacity-60 mt-3">Мы перезвоним вам в течение 15 минут</p>
             </div>
         </div>
     </section>
 
-    <!-- RUNNING LINE START (UPDATED 2026-03-01) -->
-    <section id="running-line" aria-label="Ключевые направления">
-        <div class="marquee-track">
-            <p class="marquee-line">
-                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
-                <span class="marquee-dot">•</span>
-                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
-                <span class="marquee-dot">•</span>
-                <span>ХОУМСТЕЙДЖИНГ</span>
-                <span class="marquee-dot">•</span>
-                <span>СДАЧА В АРЕНДУ</span>
-                <span class="marquee-dot">•</span>
-                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
-                <span class="marquee-dot">•</span>
-                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
-                <span class="marquee-dot">•</span>
-                <span>ХОУМСТЕЙДЖИНГ</span>
-                <span class="marquee-dot">•</span>
-                <span>СДАЧА В АРЕНДУ</span>
-                <span class="marquee-dot">•</span>
-            </p>
-            <p class="marquee-line" aria-hidden="true">
-                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
-                <span class="marquee-dot">•</span>
-                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
-                <span class="marquee-dot">•</span>
-                <span>ХОУМСТЕЙДЖИНГ</span>
-                <span class="marquee-dot">•</span>
-                <span>СДАЧА В АРЕНДУ</span>
-                <span class="marquee-dot">•</span>
-                <span>ИНВЕСТИЦИОННЫЙ РЕМОНТ</span>
-                <span class="marquee-dot">•</span>
-                <span>МЕБЛИРОВКА ПОД КЛЮЧ</span>
-                <span class="marquee-dot">•</span>
-                <span>ХОУМСТЕЙДЖИНГ</span>
-                <span class="marquee-dot">•</span>
-                <span>СДАЧА В АРЕНДУ</span>
-                <span class="marquee-dot">•</span>
-            </p>
+    <!-- Бегущая строка (Marquee) - БЕСШОВНАЯ -->
+    <div class="w-full !bg-[#c08267] !text-[#fdf8f6] py-3 lg:py-4 overflow-hidden flex flex-nowrap relative z-20 border-y border-[#a36851] shadow-inner">
+        <div class="animate-marquee shrink-0 flex items-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] opacity-90">
+            <span class="mx-6">Меблировка под ключ</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Хоумстейджинг</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Сдача в аренду</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Инвестиционный ремонт</span> <span class="opacity-50">•</span>
         </div>
-    </section>
-    <!-- RUNNING LINE END -->
+        <div class="animate-marquee shrink-0 flex items-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] opacity-90" aria-hidden="true">
+            <span class="mx-6">Меблировка под ключ</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Хоумстейджинг</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Сдача в аренду</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Инвестиционный ремонт</span> <span class="opacity-50">•</span>
+        </div>
+        <div class="animate-marquee shrink-0 flex items-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] opacity-90" aria-hidden="true">
+            <span class="mx-6">Меблировка под ключ</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Хоумстейджинг</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Сдача в аренду</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Инвестиционный ремонт</span> <span class="opacity-50">•</span>
+        </div>
+        <div class="animate-marquee shrink-0 flex items-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] opacity-90" aria-hidden="true">
+            <span class="mx-6">Меблировка под ключ</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Хоумстейджинг</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Сдача в аренду</span> <span class="opacity-50">•</span>
+            <span class="mx-6">Инвестиционный ремонт</span> <span class="opacity-50">•</span>
+        </div>
+    </div>
 
     <!-- БЛОК 2: Боли аудитории -->
     <section class="content-section py-12 lg:py-20 bg-[#fdf9f6]">
@@ -356,7 +364,7 @@
                         <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Вы отдаете ключи, мы всё делаем сами (можно удаленно).</li>
                         <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Грамотно планируем каждый метр: скрытое хранение, полноценная техника.</li>
                         <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Смета фиксируется — используем проверенную мебель комфорт-класса.</li>
-                        <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Через 45 дней (или раньше) квартира полностью готова к жизни.</li>
+                        <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Через 35 дней (или раньше) квартира полностью готова к жизни.</li>
                         <li class="flex items-start gap-3 text-gray-300 text-sm lg:text-base"><span class="!text-[#c08267] font-bold mt-0.5">✓</span> Сдаем квартиру за неделю благодаря функциональному хоумстейджингу.</li>
                     </ul>
                 </div>
@@ -481,7 +489,7 @@
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
                 <span class="section-kicker mb-3">Процесс</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-3 lg:mb-4">Прозрачный процесс работы</h2>
-                <p class="text-sm sm:text-base lg:text-xl !text-[#000000] opacity-80">Системный подход: от передачи ключей до первых показов за 45 дней.</p>
+                <p class="text-sm sm:text-base lg:text-xl !text-[#000000] opacity-80">Системный подход: от передачи ключей до первых показов за 35 дней.</p>
             </div>
 
             <div class="relative fade-up">
@@ -638,7 +646,7 @@
                 <div class="w-full lg:w-[440px] xl:w-[520px] relative mt-4 lg:mt-0 lg:shrink-0">
                     <div class="absolute inset-0 !bg-[#c08267] blur-3xl opacity-30 rounded-full animate-pulse"></div>
                     <div class="relative z-10 mx-auto w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[460px] aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 rotate-2 hover:rotate-0 transition duration-500">
-                        <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/catalog.png" alt="Каталог интерьеров" class="w-full h-full object-contain bg-white/5 p-1 sm:p-2" onerror="this.src='https://via.placeholder.com/600x800?text=[Image+of+Каталог+современных+интерьеров]'">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/catalog.png" alt="Каталог интерьеров" class="w-full h-full object-contain bg-white/5 p-1 sm:p-2" onerror="this.src='https://via.placeholder.com/600x800?text=[Каталог+современных+интерьеров]'">
                     </div>
                 </div>
             </div>
@@ -658,11 +666,11 @@
                 <!-- Кейс 1 (Матвеевский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
                     <div class="case-slider overflow-hidden relative bg-gray-100"
-                         data-images="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_2_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_3_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_4_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_5_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_6_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_7_2026-02-28_11-15-29.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_8_2026-02-28_11-15-29.jpg"
+                         data-images="matveevskiy/photo_1_2026-02-28_11-15-29.jpg|matveevskiy/photo_2_2026-02-28_11-15-29.jpg|matveevskiy/photo_3_2026-02-28_11-15-29.jpg|matveevskiy/photo_4_2026-02-28_11-24-11.jpg|matveevskiy/photo_5_2026-02-28_11-15-29.jpg|matveevskiy/photo_6_2026-02-28_11-15-29.jpg|matveevskiy/photo_7_2026-02-28_11-15-29.jpg|matveevskiy/photo_8_2026-02-28_11-15-29.jpg"
                          data-alt="Студия ЖК Матвеевский парк"
-                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]">
-                        <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg" alt="Студия ЖК Матвеевский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]'">
-                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                         data-fallback="https://via.placeholder.com/800x600?text=[Уютная+студия+20м2]">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg" alt="Студия ЖК Матвеевский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Уютная+студия+20м2]'">
+                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] lg:text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
@@ -680,7 +688,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
-                                <div class="text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
+                                <div class="text-[9px] lg:text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
                                 <div class="text-base lg:text-xl font-bold !text-[#a36851]">660 000 ₽</div>
                             </div>
                             <button class="bg-gray-100 hover:bg-gray-200 !text-[#000000] px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg font-medium transition text-xs lg:text-sm">Смотреть проект</button>
@@ -691,11 +699,11 @@
                 <!-- Кейс 2 (Никольские луга) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
                     <div class="case-slider overflow-hidden relative bg-gray-100"
-                         data-images="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_1_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_2_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_3_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_4_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_5_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_6_2026-02-28_11-24-11.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_7_2026-02-28_11-24-11.jpg"
+                         data-images="Nikolskie/photo_1_2026-02-28_11-24-11.jpg|Nikolskie/photo_2_2026-02-28_11-24-11.jpg|Nikolskie/photo_3_2026-02-28_11-24-11.jpg|Nikolskie/photo_4_2026-02-28_11-24-11.jpg|Nikolskie/photo_5_2026-02-28_11-24-11.jpg|Nikolskie/photo_6_2026-02-28_11-24-11.jpg|Nikolskie/photo_7_2026-02-28_11-24-11.jpg"
                          data-alt="Студия ЖК Никольские луга"
-                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]">
-                        <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Nikolskie/photo_1_2026-02-28_11-24-11.jpg" alt="Студия ЖК Никольские луга" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]'">
-                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                         data-fallback="https://via.placeholder.com/800x600?text=[Компактная+функциональная+студия]">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_1_2026-02-28_11-24-11.jpg" alt="Студия ЖК Никольские луга" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Компактная+функциональная+студия]'">
+                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] lg:text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
@@ -713,7 +721,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
-                                <div class="text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
+                                <div class="text-[9px] lg:text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
                                 <div class="text-base lg:text-xl font-bold !text-[#a36851]">605 000 ₽</div>
                             </div>
                             <button class="bg-gray-100 hover:bg-gray-200 !text-[#000000] px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg font-medium transition text-xs lg:text-sm">Смотреть проект</button>
@@ -724,11 +732,11 @@
                 <!-- Кейс 3 (Амурский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
                     <div class="case-slider overflow-hidden relative bg-gray-100"
-                         data-images="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_1_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_2_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_3_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_4_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_5_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_6_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_7_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_8_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_9_2026-02-28_11-26-47.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_10_2026-02-28_11-26-47.jpg"
+                         data-images="Amurskiy/photo_1_2026-02-28_11-26-47.jpg|Amurskiy/photo_2_2026-02-28_11-26-47.jpg|Amurskiy/photo_3_2026-02-28_11-26-47.jpg|Amurskiy/photo_4_2026-02-28_11-26-47.jpg|Amurskiy/photo_5_2026-02-28_11-26-47.jpg|Amurskiy/photo_6_2026-02-28_11-26-47.jpg|Amurskiy/photo_7_2026-02-28_11-26-47.jpg|Amurskiy/photo_8_2026-02-28_11-26-47.jpg|Amurskiy/photo_9_2026-02-28_11-26-47.jpg|Amurskiy/photo_10_2026-02-28_11-26-47.jpg"
                          data-alt="Студия ЖК Амурский парк"
-                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Студия]">
-                        <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Amurskiy/photo_1_2026-02-28_11-26-47.jpg" alt="Студия ЖК Амурский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Студия]'">
-                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                         data-fallback="https://via.placeholder.com/800x600?text=[Студия]">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_1_2026-02-28_11-26-47.jpg" alt="Студия ЖК Амурский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Студия]'">
+                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] lg:text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
@@ -746,7 +754,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
-                                <div class="text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
+                                <div class="text-[9px] lg:text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
                                 <div class="text-base lg:text-xl font-bold !text-[#a36851]">556 000 ₽</div>
                             </div>
                             <button class="bg-gray-100 hover:bg-gray-200 !text-[#000000] px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg font-medium transition text-xs lg:text-sm">Смотреть проект</button>
@@ -757,11 +765,11 @@
                 <!-- Кейс 4 (Михайловский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
                     <div class="case-slider overflow-hidden relative bg-gray-100"
-                         data-images="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_2_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_3_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_4_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_5_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_6_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_7_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_8_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_9_2026-02-28_11-27-43.jpg|https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_10_2026-02-28_11-27-43.jpg"
+                         data-images="Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_2_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_3_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_4_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_5_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_6_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_7_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_8_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_9_2026-02-28_11-27-43.jpg|Mihaylovskiy/photo_10_2026-02-28_11-27-43.jpg"
                          data-alt="Евро-2 ЖК Михайловский парк"
-                         data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]">
-                        <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg" alt="Евро-2 ЖК Михайловский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]'">
-                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
+                         data-fallback="https://via.placeholder.com/800x600?text=[Евро-2+светлая+кухня]">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg" alt="Евро-2 ЖК Михайловский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Евро-2+светлая+кухня]'">
+                        <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] lg:text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
@@ -779,7 +787,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
-                                <div class="text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
+                                <div class="text-[9px] lg:text-xs !text-[#000000] opacity-60 uppercase tracking-wider mb-0.5">Бюджет на упаковку</div>
                                 <div class="text-base lg:text-xl font-bold !text-[#a36851]">655 000 ₽</div>
                             </div>
                             <button class="bg-gray-100 hover:bg-gray-200 !text-[#000000] px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg font-medium transition text-xs lg:text-sm">Смотреть проект</button>
@@ -814,7 +822,9 @@
             <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
                 <div class="w-full lg:w-1/2 relative fade-up max-w-sm mx-auto lg:max-w-none">
                     <div class="absolute -inset-3 lg:-inset-4 !bg-[#fdf8f6] rounded-3xl -z-10 transform -rotate-3 transition-transform hover:rotate-0 duration-500"></div>
-                    <img src="https://cdn.jsdelivr.net/gh/invizibl77/Meblirovka@main/assets/img/photo_2026-02-18_09-31-33.jpg" alt="Роман Волосков" class="rounded-2xl shadow-xl w-full object-cover aspect-square sm:aspect-[4/5] lg:aspect-auto" onerror="this.src='https://via.placeholder.com/800x1000?text=[Image+of+Роман+Волосков]'">
+                    <div class="reveal-curtain rounded-2xl overflow-hidden shadow-xl w-full aspect-square sm:aspect-[4/5] lg:aspect-auto">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/photo_2026-02-18_09-31-33.jpg" alt="Роман Волосков" class="reveal-image w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/800x1000?text=[Image+of+Роман+Волосков]'">
+                    </div>
                 </div>
                 <div class="w-full lg:w-1/2 fade-up delay-100">
                     <span class="section-kicker mb-3">Экспертность</span>
@@ -855,7 +865,7 @@
                     <p class="mt-2 text-[10px] !text-[#000000] opacity-45">Свайп влево/вправо</p>
                 </div>
                 <div class="mt-3 flex justify-center">
-                    <div id="review-mobile-dots" class="flex items-center gap-1.5"></div>
+                    <div id="review-mobile-dots" class="flex items-center justify-center gap-1.5 flex-wrap px-2"></div>
                 </div>
             </div>
 
@@ -874,11 +884,11 @@
                 </div>
 
                 <div class="mt-4 flex items-center justify-between gap-3">
-                    <button id="review-desktop-prev" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition" aria-label="Предыдущий отзыв">
+                    <button id="review-desktop-prev" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition shrink-0" aria-label="Предыдущий отзыв">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
-                    <div id="review-desktop-dots" class="flex items-center gap-1.5"></div>
-                    <button id="review-desktop-next" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition" aria-label="Следующий отзыв">
+                    <div id="review-desktop-dots" class="flex items-center justify-center gap-1.5 flex-wrap"></div>
+                    <button id="review-desktop-next" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition shrink-0" aria-label="Следующий отзыв">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
@@ -896,66 +906,65 @@
             
             <div class="space-y-3 lg:space-y-4">
                 <!-- Вопрос 1 -->
-                <details class="group bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 lg:p-6 text-sm lg:text-lg !text-[#000000]">
                         <span class="pr-4">Делаете ли вы косметический ремонт?</span>
                         <span class="transition group-open:rotate-180 text-[#c08267] flex-shrink-0">
                             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" class="lg:w-6 lg:h-6"><path d="M6 9l6 6 6-6"></path></svg>
                         </span>
                     </summary>
-                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base">Да, мы проводим легкий косметический ремонт, если он необходим для повышения арендной ставки. Красим стены, обновляем плинтуса, приводим квартиру в идеальный товарный вид.</p>
+                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base border-t border-gray-50 pt-4">Да, мы проводим легкий косметический ремонт, если он необходим для повышения арендной ставки. Красим стены, обновляем плинтуса, приводим квартиру в идеальный товарный вид.</p>
                 </details>
 
                 <!-- Вопрос 2 -->
-                <details class="group bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 lg:p-6 text-sm lg:text-lg !text-[#000000]">
                         <span class="pr-4">Делаете ли вы перепланировку?</span>
                         <span class="transition group-open:rotate-180 text-[#c08267] flex-shrink-0">
                             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" class="lg:w-6 lg:h-6"><path d="M6 9l6 6 6-6"></path></svg>
                         </span>
                     </summary>
-                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base">Наша основная специализация — меблировка и хоумстейджинг. Глобальные черновые работы со сносом стен мы не осуществляем, так как это сильно затягивает сроки запуска объекта в аренду.</p>
+                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base border-t border-gray-50 pt-4">Наша основная специализация — меблировка и хоумстейджинг. Глобальные черновые работы со сносом стен мы не осуществляем, так как это сильно затягивает сроки запуска объекта в аренду.</p>
                 </details>
 
                 <!-- Вопрос 3 -->
-                <details class="group bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 lg:p-6 text-sm lg:text-lg !text-[#000000]">
                         <span class="pr-4">Объект находится не в Москве, работаете ли вы удаленно?</span>
                         <span class="transition group-open:rotate-180 text-[#c08267] flex-shrink-0">
                             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" class="lg:w-6 lg:h-6"><path d="M6 9l6 6 6-6"></path></svg>
                         </span>
                     </summary>
-                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base">На данный момент мы работаем преимущественно по Москве и МО. Если вы находитесь в другом городе, мы можем полностью организовать процесс удаленно: вы передаете ключи доверенному лицу или курьеру, а мы держим с вами связь через фото- и видеоотчеты в мессенджерах.</p>
+                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base border-t border-gray-50 pt-4">На данный момент мы работаем преимущественно по Москве и МО. Если вы находитесь в другом городе, мы можем полностью организовать процесс удаленно: вы передаете ключи доверенному лицу или курьеру, а мы держим с вами связь через фото- и видеоотчеты в мессенджерах.</p>
                 </details>
 
                 <!-- Вопрос 4 -->
-                <details class="group bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 lg:p-6 text-sm lg:text-lg !text-[#000000]">
                         <span class="pr-4">Меняете ли вы двери и окна?</span>
                         <span class="transition group-open:rotate-180 text-[#c08267] flex-shrink-0">
                             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" class="lg:w-6 lg:h-6"><path d="M6 9l6 6 6-6"></path></svg>
                         </span>
                     </summary>
-                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base">При необходимости мы можем организовать замену межкомнатных дверей или регулировку/замену окон силами наших проверенных подрядчиков.</p>
+                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base border-t border-gray-50 pt-4">При необходимости мы можем организовать замену межкомнатных дверей или регулировку/замену окон силами наших проверенных подрядчиков.</p>
                 </details>
                 
                 <!-- Вопрос 5 -->
-                <details class="group bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 lg:p-6 text-sm lg:text-lg !text-[#000000]">
                         <span class="pr-4">Ставите ли вы стиральную машину и кондиционер?</span>
                         <span class="transition group-open:rotate-180 text-[#c08267] flex-shrink-0">
                             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" class="lg:w-6 lg:h-6"><path d="M6 9l6 6 6-6"></path></svg>
                         </span>
                     </summary>
-                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base">Обязательно! Мы укомплектовываем квартиру абсолютно всей необходимой крупной и мелкой бытовой техникой по согласованию с вами, включая закупку и установка кондиционеров по выгодным ценам.</p>
+                    <p class="!text-[#000000] opacity-80 px-4 lg:px-6 pb-4 lg:pb-6 mt-1 text-xs lg:text-base border-t border-gray-50 pt-4">Обязательно! Мы укомплектовываем квартиру абсолютно всей необходимой крупной и мелкой бытовой техникой по согласованию с вами, включая закупку и установку кондиционеров по выгодным ценам.</p>
                 </details>
             </div>
         </div>
     </section>
 
     <!-- БЛОК 12: Подвал / Форма -->
-    <section id="request" class="content-section section-dark py-12 lg:py-20 !bg-[#2d2a26] relative fade-up scroll-mt-24">
-        <div id="contacts"></div>
+    <section id="contacts" class="content-section section-dark py-12 lg:py-20 !bg-[#2d2a26] relative fade-up scroll-mt-24">
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <svg class="absolute -right-40 -top-40 w-[50rem] h-[50rem] text-white opacity-5" fill="currentColor" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
         </div>
@@ -1017,510 +1026,456 @@
             </button>
         </div>
     </div>
+</div>
+<!-- КОНЕЦ ОСНОВНОГО КОНТЕЙНЕРА -->
 
-    <!-- Скрипты -->
-    <script>
-        // 1. Мобильное меню
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        
-        function toggleMenu() {
-            menu.classList.toggle('translate-x-full');
-            if (menu.classList.contains('translate-x-full')) {
-                btn.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
-                document.body.style.overflow = '';
-            } else {
-                btn.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-                document.body.style.overflow = 'hidden'; 
-            }
+<!-- Скрипты -->
+<script>
+    // 1. Мобильное меню
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    
+    function toggleMenu() {
+        menu.classList.toggle('translate-x-full');
+        if (menu.classList.contains('translate-x-full')) {
+            btn.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+            document.body.style.overflow = '';
+        } else {
+            btn.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            document.body.style.overflow = 'hidden'; 
         }
-        
-        btn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+    }
+    
+    if(btn) btn.addEventListener('click', toggleMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // 2. Плавная анимация при скролле (Fade-Up)
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+    // 2. Плавная анимация при скролле (Fade-Up)
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
 
-        document.querySelectorAll('.fade-up').forEach((el) => { observer.observe(el); });
+    document.querySelectorAll('.fade-up, .reveal-curtain').forEach((el) => { observer.observe(el); });
 
-        // 3. Слайдеры в блоке кейсов
-        function initCaseSliders() {
-            const sliders = document.querySelectorAll('.case-slider');
+    // Параллакс главного экрана
+    const heroBg = document.querySelector('.hero-bg-parallax');
+    if (heroBg) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            heroBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.05)`;
+        }, { passive: true });
+    }
 
-            sliders.forEach((slider) => {
-                const img = slider.querySelector('.case-slider-image');
-                const prevBtn = slider.querySelector('.case-nav.prev');
-                const nextBtn = slider.querySelector('.case-nav.next');
-                const dotsWrap = slider.querySelector('.case-dots');
-                const altText = slider.dataset.alt || '';
-                const fallback = slider.dataset.fallback || '';
-                const images = (slider.dataset.images || '')
-                    .split('|')
-                    .map((item) => item.trim())
-                    .filter(Boolean);
+    // 3. Слайдеры в блоке кейсов (ОПТИМИЗИРОВАНО ДЛЯ TILDA)
+    function initCaseSliders() {
+        const sliders = document.querySelectorAll('.case-slider');
+        const baseUrl = "https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/";
 
-                if (!img || images.length === 0) return;
+        sliders.forEach((slider) => {
+            const img = slider.querySelector('.case-slider-image');
+            const prevBtn = slider.querySelector('.case-nav.prev');
+            const nextBtn = slider.querySelector('.case-nav.next');
+            const dotsWrap = slider.querySelector('.case-dots');
+            const altText = slider.dataset.alt || '';
+            const fallback = slider.dataset.fallback || '';
+            
+            // Собираем полные URL
+            const images = (slider.dataset.images || '')
+                .split('|')
+                .map((item) => item.trim() ? baseUrl + item.trim() : '')
+                .filter(Boolean);
 
-                let currentIndex = 0;
-                let autoplayTimer = null;
+            if (!img || images.length === 0) return;
 
-                function updateSlide() {
-                    img.src = images[currentIndex];
-                    img.alt = altText;
-                    if (fallback) {
-                        img.onerror = function () {
-                            this.onerror = null;
-                            this.src = fallback;
-                        };
-                    }
+            let currentIndex = 0;
+            let autoplayTimer = null;
 
-                    if (dotsWrap) {
-                        dotsWrap.querySelectorAll('button').forEach((dot, index) => {
-                            dot.classList.toggle('bg-white', index === currentIndex);
-                            dot.classList.toggle('bg-white/50', index !== currentIndex);
-                        });
-                    }
-                }
-
-                function goNext() {
-                    currentIndex = (currentIndex + 1) % images.length;
-                    updateSlide();
-                }
-
-                function goPrev() {
-                    currentIndex = (currentIndex - 1 + images.length) % images.length;
-                    updateSlide();
-                }
-
-                function stopAutoplay() {
-                    if (!autoplayTimer) return;
-                    clearInterval(autoplayTimer);
-                    autoplayTimer = null;
-                }
-
-                function startAutoplay() {
-                    if (images.length < 2) return;
-                    autoplayTimer = setInterval(goNext, 4500);
-                }
-
-                function restartAutoplay() {
-                    stopAutoplay();
-                    startAutoplay();
+            function updateSlide() {
+                img.src = images[currentIndex];
+                img.alt = altText;
+                if (fallback) {
+                    img.onerror = function () {
+                        this.onerror = null;
+                        this.src = fallback;
+                    };
                 }
 
                 if (dotsWrap) {
-                    dotsWrap.innerHTML = '';
-                    images.forEach((_, index) => {
-                        const dot = document.createElement('button');
-                        dot.type = 'button';
-                        dot.className = index === 0 ? 'w-2 h-2 rounded-full bg-white transition' : 'w-2 h-2 rounded-full bg-white/50 transition';
-                        dot.setAttribute('aria-label', `Фото ${index + 1}`);
-                        dot.addEventListener('click', () => {
-                            currentIndex = index;
-                            updateSlide();
-                            restartAutoplay();
-                        });
-                        dotsWrap.appendChild(dot);
+                    dotsWrap.querySelectorAll('button').forEach((dot, index) => {
+                        dot.classList.toggle('bg-white', index === currentIndex);
+                        dot.classList.toggle('bg-white/50', index !== currentIndex);
                     });
                 }
+            }
 
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        goNext();
-                        restartAutoplay();
-                    });
-                }
-
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        goPrev();
-                        restartAutoplay();
-                    });
-                }
-
-                slider.addEventListener('mouseenter', stopAutoplay);
-                slider.addEventListener('mouseleave', startAutoplay);
-                slider.addEventListener('touchstart', stopAutoplay, { passive: true });
-                slider.addEventListener('touchend', startAutoplay);
-
-                if (images.length < 2) {
-                    if (prevBtn) prevBtn.classList.add('hidden');
-                    if (nextBtn) nextBtn.classList.add('hidden');
-                    if (dotsWrap) dotsWrap.classList.add('hidden');
-                }
-
+            function goNext() {
+                currentIndex = (currentIndex + 1) % images.length;
                 updateSlide();
-                startAutoplay();
-            });
-        }
+            }
 
-        initCaseSliders();
+            function goPrev() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateSlide();
+            }
 
-        // 3.5 Карусель отзывов
-        function initReviewsCarousel() {
-            const reviews = [
-                {
-                    title: 'Студия 20 м²: заселили за 3 недели',
-                    text: '«От старта упаковки до заселения арендатора прошло 3 недели. Квартира в ЖК Митинский Лес сдалась с первого показа.»',
-                    meta: 'ЖК Митинский Лес • Январь 2025 • ID 1038'
-                },
-                {
-                    title: 'Повторная сдача за 2 недели',
-                    text: '«После съезда жильцов квартиру снова сдали за 2 недели: было несколько кандидатов, выбрали самого надежного.»',
-                    meta: 'Москва • Март 2025 • ID 1191'
-                },
-                {
-                    title: '“Оправдали ожидания на 150%”',
-                    text: '«По словам заказчика, результат превзошел ожидания: в студии 20 м² разместили полный набор техники и два шкафа.»',
-                    meta: 'Студия 20 м² • Май 2024 • ID 621'
-                },
-                {
-                    title: 'Студия сдана за 55 000 ₽',
-                    text: '«Быстро и бюджетно упаковали студию в ЖК Кронштадтский 14. Квартира “улетела” в аренду за 55 000 ₽.»',
-                    meta: 'ЖК Кронштадтский 14 • Май 2024 • ID 609'
-                },
-                {
-                    title: 'Евро-2 в апартаментах без переплат',
-                    text: '«В ЖК Волоколамское 24 аккуратно обошли сложную геометрию стен и сделали стильную евро-2 в рамках бюджета.»',
-                    meta: 'ЖК Волоколамское 24 • Март 2024 • ID 549'
-                },
-                {
-                    title: 'Функциональная студия 27 м²',
-                    text: '«Уместили двуспальную кровать, диван, рабочее место и большую кухню со встроенной техникой. Заказчик доволен.»',
-                    meta: 'ЖК Матвеевский Парк • Июль 2024 • ID 663'
-                },
-                {
-                    title: 'Сдали и подобрали надежных арендаторов',
-                    text: '«Бюджетно обустроили студию в ЖК Профит и закрыли задачу под ключ: от меблировки до подбора арендаторов.»',
-                    meta: 'ЖК Профит • Февраль 2025 • ID 1093'
-                },
-                {
-                    title: 'Евро-2 с продуманным хранением',
-                    text: '«В ЖК Аквилон Бисайд организовали достаточное хранение, обставили даже балкон и нашли приличного арендатора.»',
-                    meta: 'ЖК Аквилон Бисайд • Март 2025 • ID 1149'
-                },
-                {
-                    title: 'Green Park: максимум пользы в 37 м²',
-                    text: '«Упаковали евро-2 и выбрали платежеспособных арендаторов. Из решений особенно оценили скрытую гладильную доску.»',
-                    meta: 'ЖК Green Park • Ноябрь 2024 • ID 865'
-                },
-                {
-                    title: 'Полная комплектация за 370 000 ₽',
-                    text: '«Даже со скромным бюджетом в студии есть всё необходимое: полноценная кровать, ПММ, духовой шкаф и кондиционер.»',
-                    meta: 'ЖК Авиатика • Март 2024 • ID 568'
-                },
-                {
-                    title: 'Удаленно, без потери качества',
-                    text: '«Собственник не в Москве, проект вели полностью удаленно: реализовали акцентный дизайн и сдали объект в аренду.»',
-                    meta: 'Евро-2, 36 м² • Август 2024 • ID 684'
-                },
-                {
-                    title: 'Евро-3 “с вау-эффектом”',
-                    text: '«Квартиру в Матвеевском Парке обустроили так, чтобы арендаторы влюблялись с порога: современно, стильно и продумано.»',
-                    meta: 'ЖК Матвеевский Парк • Апрель 2025 • ID 1232'
-                }
-            ];
+            function stopAutoplay() {
+                if (!autoplayTimer) return;
+                clearInterval(autoplayTimer);
+                autoplayTimer = null;
+            }
 
-            function initDesktopCarousel() {
-                const carousel = document.getElementById('reviews-carousel-desktop');
-                const titleEl = document.getElementById('review-desktop-title');
-                const textEl = document.getElementById('review-desktop-text');
-                const metaEl = document.getElementById('review-desktop-meta');
-                const prevBtn = document.getElementById('review-desktop-prev');
-                const nextBtn = document.getElementById('review-desktop-next');
-                const dotsWrap = document.getElementById('review-desktop-dots');
+            function startAutoplay() {
+                if (images.length < 2) return;
+                autoplayTimer = setInterval(goNext, 4500);
+            }
 
-                if (!carousel || !titleEl || !textEl || !metaEl || !dotsWrap) return;
-
-                let currentIndex = 0;
-                let autoplayTimer = null;
-
-                function renderReview() {
-                    const current = reviews[currentIndex];
-                    titleEl.textContent = current.title;
-                    textEl.textContent = current.text;
-                    metaEl.textContent = current.meta;
-
-                    dotsWrap.querySelectorAll('button').forEach((dot, index) => {
-                        dot.classList.toggle('active', index === currentIndex);
-                    });
-                }
-
-                function stopAutoplay() {
-                    if (!autoplayTimer) return;
-                    clearInterval(autoplayTimer);
-                    autoplayTimer = null;
-                }
-
-                function startAutoplay() {
-                    if (reviews.length < 2) return;
-                    autoplayTimer = setInterval(() => {
-                        currentIndex = (currentIndex + 1) % reviews.length;
-                        renderReview();
-                    }, 6000);
-                }
-
-                function restartAutoplay() {
-                    stopAutoplay();
-                    startAutoplay();
-                }
-
-                dotsWrap.innerHTML = '';
-                reviews.forEach((_, index) => {
-                    const dot = document.createElement('button');
-                    dot.type = 'button';
-                    dot.className = index === 0 ? 'review-dot active' : 'review-dot';
-                    dot.setAttribute('aria-label', `Отзыв ${index + 1}`);
-                    dot.addEventListener('click', () => {
-                        currentIndex = index;
-                        renderReview();
-                        restartAutoplay();
-                    });
-                    dotsWrap.appendChild(dot);
-                });
-
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        currentIndex = (currentIndex + 1) % reviews.length;
-                        renderReview();
-                        restartAutoplay();
-                    });
-                }
-
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
-                        renderReview();
-                        restartAutoplay();
-                    });
-                }
-
-                carousel.addEventListener('mouseenter', stopAutoplay);
-                carousel.addEventListener('mouseleave', startAutoplay);
-                carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
-                carousel.addEventListener('touchend', startAutoplay);
-
-                renderReview();
+            function restartAutoplay() {
+                stopAutoplay();
                 startAutoplay();
             }
 
-            function initMobileCarousel() {
-                const carousel = document.getElementById('reviews-carousel-mobile');
-                const titleEl = document.getElementById('review-mobile-title');
-                const textEl = document.getElementById('review-mobile-text');
-                const metaEl = document.getElementById('review-mobile-meta');
-                const dotsWrap = document.getElementById('review-mobile-dots');
-
-                if (!carousel || !titleEl || !textEl || !metaEl || !dotsWrap) return;
-
-                let currentIndex = 0;
-                let autoplayTimer = null;
-                let touchStartX = 0;
-                let touchStartY = 0;
-
-                function renderReview() {
-                    const current = reviews[currentIndex];
-                    titleEl.textContent = current.title;
-                    textEl.textContent = current.text;
-                    metaEl.textContent = current.meta;
-
-                    dotsWrap.querySelectorAll('button').forEach((dot, index) => {
-                        dot.classList.toggle('active', index === currentIndex);
-                    });
-                }
-
-                function goNext() {
-                    currentIndex = (currentIndex + 1) % reviews.length;
-                    renderReview();
-                }
-
-                function goPrev() {
-                    currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
-                    renderReview();
-                }
-
-                function stopAutoplay() {
-                    if (!autoplayTimer) return;
-                    clearInterval(autoplayTimer);
-                    autoplayTimer = null;
-                }
-
-                function startAutoplay() {
-                    if (reviews.length < 2) return;
-                    autoplayTimer = setInterval(goNext, 6000);
-                }
-
-                function restartAutoplay() {
-                    stopAutoplay();
-                    startAutoplay();
-                }
-
+            if (dotsWrap) {
                 dotsWrap.innerHTML = '';
-                reviews.forEach((_, index) => {
+                images.forEach((_, index) => {
                     const dot = document.createElement('button');
                     dot.type = 'button';
-                    dot.className = index === 0 ? 'review-dot active' : 'review-dot';
-                    dot.setAttribute('aria-label', `Отзыв ${index + 1}`);
+                    dot.className = index === 0 ? 'w-2 h-2 rounded-full bg-white transition' : 'w-2 h-2 rounded-full bg-white/50 transition';
+                    dot.setAttribute('aria-label', `Фото ${index + 1}`);
                     dot.addEventListener('click', () => {
                         currentIndex = index;
-                        renderReview();
+                        updateSlide();
                         restartAutoplay();
                     });
                     dotsWrap.appendChild(dot);
                 });
+            }
 
-                carousel.addEventListener('touchstart', (event) => {
-                    const touch = event.changedTouches && event.changedTouches[0];
-                    if (!touch) return;
-                    touchStartX = touch.clientX;
-                    touchStartY = touch.clientY;
-                    stopAutoplay();
-                }, { passive: true });
-
-                carousel.addEventListener('touchend', (event) => {
-                    const touch = event.changedTouches && event.changedTouches[0];
-                    if (!touch) {
-                        startAutoplay();
-                        return;
-                    }
-
-                    const deltaX = touch.clientX - touchStartX;
-                    const deltaY = touch.clientY - touchStartY;
-                    const isHorizontalSwipe = Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY);
-
-                    if (isHorizontalSwipe) {
-                        if (deltaX < 0) {
-                            goNext();
-                        } else {
-                            goPrev();
-                        }
-                    }
-
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    goNext();
                     restartAutoplay();
-                }, { passive: true });
-
-                renderReview();
-                startAutoplay();
+                });
             }
 
-            initDesktopCarousel();
-            initMobileCarousel();
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    goPrev();
+                    restartAutoplay();
+                });
+            }
+
+            slider.addEventListener('mouseenter', stopAutoplay);
+            slider.addEventListener('mouseleave', startAutoplay);
+            slider.addEventListener('touchstart', stopAutoplay, { passive: true });
+            slider.addEventListener('touchend', startAutoplay);
+
+            if (images.length < 2) {
+                if (prevBtn) prevBtn.classList.add('hidden');
+                if (nextBtn) nextBtn.classList.add('hidden');
+                if (dotsWrap) dotsWrap.classList.add('hidden');
+            }
+
+            updateSlide();
+            startAutoplay();
+        });
+    }
+
+    initCaseSliders();
+
+    // 4. Прогресс чтения и активный блок
+    const progressBar = document.getElementById('read-progress-bar');
+    const readingSections = Array.from(document.querySelectorAll('.content-section'));
+    let activeSection = null;
+    let readingTicking = false;
+
+    function updateReadingState() {
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const maxScrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScrollable > 0 ? (scrollTop / maxScrollable) * 100 : 0;
+        if (progressBar) {
+            progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
         }
 
-        initReviewsCarousel();
+        if (!readingSections.length) return;
 
-        // 4. Прогресс чтения и активный блок
-        const progressBar = document.getElementById('read-progress-bar');
-        const readingSections = Array.from(document.querySelectorAll('.content-section'));
-        let activeSection = null;
-        let readingTicking = false;
+        const focusY = scrollTop + window.innerHeight * 0.45;
+        let currentSection = null;
 
-        function updateReadingState() {
-            const scrollTop = window.scrollY || window.pageYOffset;
-            const maxScrollable = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = maxScrollable > 0 ? (scrollTop / maxScrollable) * 100 : 0;
-            if (progressBar) {
-                progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
-            }
-
-            if (!readingSections.length) return;
-
-            const focusY = scrollTop + window.innerHeight * 0.45;
-            let currentSection = null;
-
-            for (const section of readingSections) {
-                const top = section.offsetTop;
-                const bottom = top + section.offsetHeight;
-                if (focusY >= top && focusY < bottom) {
-                    currentSection = section;
-                    break;
-                }
-            }
-
-            if (!currentSection) {
-                currentSection = readingSections[readingSections.length - 1];
-            }
-
-            if (currentSection !== activeSection) {
-                if (activeSection) activeSection.classList.remove('section-active');
-                currentSection.classList.add('section-active');
-                activeSection = currentSection;
-            }
-        }
-
-        function scheduleReadingStateUpdate() {
-            if (readingTicking) return;
-            readingTicking = true;
-            requestAnimationFrame(() => {
-                updateReadingState();
-                readingTicking = false;
-            });
-        }
-
-        window.addEventListener('scroll', scheduleReadingStateUpdate, { passive: true });
-        window.addEventListener('resize', scheduleReadingStateUpdate);
-        updateReadingState();
-
-        // 5. Exit-Intent и Timed Pop-up
-        let popupShown = sessionStorage.getItem('exitPopupShown');
-        let lastScrollTime = Date.now();
-        const pageLoadTime = Date.now();
-
-        function showExitPopup() {
-            if (!popupShown) {
-                const popup = document.getElementById('exit-popup');
-                const content = document.getElementById('exit-popup-content');
-                popup.classList.remove('hidden');
-                popup.classList.add('flex');
-                
-                setTimeout(() => {
-                    popup.classList.remove('opacity-0');
-                    content.classList.remove('scale-95');
-                }, 10);
-                
-                sessionStorage.setItem('exitPopupShown', 'true');
-                popupShown = true;
+        for (const section of readingSections) {
+            const top = section.offsetTop;
+            const bottom = top + section.offsetHeight;
+            if (focusY >= top && focusY < bottom) {
+                currentSection = section;
+                break;
             }
         }
 
-        function closeExitPopup() {
+        if (!currentSection) {
+            currentSection = readingSections[readingSections.length - 1];
+        }
+
+        if (currentSection !== activeSection) {
+            if (activeSection) activeSection.classList.remove('section-active');
+            currentSection.classList.add('section-active');
+            activeSection = currentSection;
+        }
+    }
+
+    function scheduleReadingStateUpdate() {
+        if (readingTicking) return;
+        readingTicking = true;
+        requestAnimationFrame(() => {
+            updateReadingState();
+            readingTicking = false;
+        });
+    }
+
+    window.addEventListener('scroll', scheduleReadingStateUpdate, { passive: true });
+    window.addEventListener('resize', scheduleReadingStateUpdate);
+    updateReadingState();
+
+    // 5. Exit-Intent и Timed Pop-up
+    let popupShown = sessionStorage.getItem('exitPopupShown');
+    let lastScrollTime = Date.now();
+    const pageLoadTime = Date.now();
+
+    function showExitPopup() {
+        if (!popupShown) {
             const popup = document.getElementById('exit-popup');
             const content = document.getElementById('exit-popup-content');
-            
-            popup.classList.add('opacity-0');
-            content.classList.add('scale-95');
+            if(!popup || !content) return;
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
             
             setTimeout(() => {
-                popup.classList.add('hidden');
-                popup.classList.remove('flex');
-            }, 300);
+                popup.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+            
+            sessionStorage.setItem('exitPopupShown', 'true');
+            popupShown = true;
+        }
+    }
+
+    function closeExitPopup() {
+        const popup = document.getElementById('exit-popup');
+        const content = document.getElementById('exit-popup-content');
+        if(!popup || !content) return;
+        
+        popup.classList.add('opacity-0');
+        content.classList.add('scale-95');
+        
+        setTimeout(() => {
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }, 300);
+    }
+
+    window.addEventListener('scroll', () => { lastScrollTime = Date.now(); });
+
+    const checkTimer = setInterval(() => {
+        if (popupShown) { clearInterval(checkTimer); return; }
+        const timeOnPage = Date.now() - pageLoadTime;
+        const timeSinceLastScroll = Date.now() - lastScrollTime;
+
+        if (timeOnPage >= 30000 && timeSinceLastScroll >= 4000) {
+            showExitPopup();
+            clearInterval(checkTimer);
+        }
+    }, 2000);
+
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 0) { showExitPopup(); }
+    });
+
+    // 6. Карусель отзывов
+    const reviewsData = [
+        {
+            title: '«Сдали быстро и за максимальную цену!»',
+            text: '«Выражаю благодарность команде стейджеров за отличную работу и скорость! Всё получилось великолепно, фото не передают. Квартиру сдали быстро и за максимальную цену! Всё аккуратно, прозрачно, смету вели в общем доступе.»',
+            meta: 'Мария • ЖК Митинский Лес'
+        },
+        {
+            title: '«Оперативная упаковка за 3 недели»',
+            text: '«Вся работа от передачи ключей до арендатора — 3 недели, супер быстро и качественно! Огромная благодарность Роману, Марине, Диларе, Александру за упаковку и сдачу в аренду за неделю!»',
+            meta: 'Алексей • Москва'
+        },
+        {
+            title: '«Минимум беспокойства и 100% прозрачность»',
+            text: '«Очень понравилось сотрудничество: ровно в срок, минимум беспокойства с моей стороны и максимальная прозрачность с Вашей! Буду Вас рекомендовать.»',
+            meta: 'Елена • Студия 20 м²'
+        },
+        {
+            title: '«Экономит время и нервы инвесторов»',
+            text: '«Для тех, кто никогда не занимался меблировкой — это сильно экономит время и нервы. Вложенные в мебель деньги без профессионалов вряд ли оправдают себя при сдаче. С ребятами всё честно, порядочно, адекватно по цене.»',
+            meta: 'Дмитрий • ЖК Кронштадтский 14'
+        },
+        {
+            title: '«Сдали за 1 день после публикации»',
+            text: '«Только выложили объявление, как сразу пошли звонки. Вечером уже подписали договор на 65 тыс. рублей, хотя соседи сдают за 50! Ремонт окупится очень быстро.»',
+            meta: 'Ольга • ЖК Саларьево Парк'
+        },
+        {
+            title: '«От бетона до арендатора — никаких проблем»',
+            text: '«Я просто отдала ключи и через полтора месяца начала получать деньги на карту. Не ездила по магазинам, не принимала доставки. Супер сервис для занятых людей!»',
+            meta: 'Анна • ЖК Перовское 2'
+        },
+        {
+            title: '«Идеальная упаковка под ключ»',
+            text: '«Ребята продумали каждую мелочь, от крупной бытовой техники до штор и посуды. Арендаторы заехали просто с одним чемоданом.»',
+            meta: 'Игорь • ЖК Бунинские луга'
+        },
+        {
+            title: '«Выжали максимум из 19 м²»',
+            text: '«Никогда не думал, что в такую крохотную студию влезет и посудомойка, и нормальная двуспальная кровать, и рабочее место. Очень грамотная эргономика.»',
+            meta: 'Павел • ЖК Мякинино парк'
+        },
+        {
+            title: '«Потрясающая скорость и отчетность»',
+            text: '«Каждую неделю получал фото и видео со стройки. Смета сошлась копейка в копейку, никаких скрытых доплат в процессе не всплыло.»',
+            meta: 'Сергей • ЖК Руставели 14'
+        },
+        {
+            title: '«Помогли сдать дороже рынка на 15%»',
+            text: '«Ожидал сдавать студию за 45к, в итоге команда KEYFORT сдала её за 55к! Окупили свои услуги буквально за несколько месяцев.»',
+            meta: 'Евгений • ЖК Полярная 25'
+        },
+        {
+            title: '«Стильный интерьер без космических трат»',
+            text: '«Выглядит как дорогой дизайнерский ремонт, но вся мебель из масс-маркета. Очень грамотный хоумстейджинг и подбор цветов!»',
+            meta: 'Светлана • ЖК Сигнальный 16'
+        },
+        {
+            title: '«Команда настоящих профессионалов»',
+            text: '«Все хлопоты с доставкой, сборкой, возвратом брака взяли на себя. Я сэкономил кучу нервов и несколько выходных.»',
+            meta: 'Виктор • ЖК Открытый парк'
+        },
+        {
+            title: '«Оправдали ожидания на 150%»',
+            text: '«Результат превзошел ожидания: в студии 20 м² разместили полный набор техники, два шкафа и сохранили ощущение простора.»',
+            meta: 'Михаил • ЖК Матвеевский Парк'
+        },
+        {
+            title: '«Евро-2 в апартаментах без переплат»',
+            text: '«Аккуратно обошли сложную геометрию стен от застройщика и сделали стильную евро-двушку строго в рамках оговоренного бюджета.»',
+            meta: 'Татьяна • ЖК Волоколамское 24'
+        },
+        {
+            title: '«Полная комплектация за 556 000 ₽»',
+            text: '«Даже со скромным бюджетом в студии есть всё необходимое: полноценная кровать, ПММ, духовой шкаф и инверторный кондиционер.»',
+            meta: 'Илья • ЖК Амурский парк'
+        },
+        {
+            title: '«Удаленно, без потери качества»',
+            text: '«Я живу не в Москве, проект вели полностью удаленно. Ключи передал курьером. Реализовали шикарный акцентный дизайн и сами сдали объект.»',
+            meta: 'Антон • ЖК Люблинский парк'
+        },
+        {
+            title: '«Евро-3 с вау-эффектом»',
+            text: '«Квартиру обустроили так, чтобы арендаторы влюблялись с порога. Современно, стильно и продумано. Сдали семье за 110 000 ₽.»',
+            meta: 'Наталья • ЖК Ильменский 17'
+        },
+        {
+            title: '«Сдали и подобрали надежных арендаторов»',
+            text: '«Бюджетно обустроили студию и закрыли задачу полностью под ключ: от меблировки до жесткого фильтра и подбора отличных арендаторов.»',
+            meta: 'Роман • ЖК Профит'
+        },
+        {
+            title: '«Максимум пользы в 37 м²»',
+            text: '«Упаковали евро-2 и выбрали платежеспособных жильцов. Из решений особенно круто зашла скрытая гладильная доска и хранение на балконе.»',
+            meta: 'Екатерина • ЖК Green Park'
+        },
+        {
+            title: '«Быстро, четко, прозрачно»',
+            text: '«Никакой головной боли. Ребята знают, что делают. Отчеты в чат каждую пятницу, чеки прикреплены. Буду отдавать им вторую квартиру.»',
+            meta: 'Владимир • ЖК Никольские луга'
+        }
+    ];
+
+    function initReviews(prefix) {
+        const titleEl = document.getElementById(`review-${prefix}-title`);
+        const textEl = document.getElementById(`review-${prefix}-text`);
+        const metaEl = document.getElementById(`review-${prefix}-meta`);
+        const dotsWrap = document.getElementById(`review-${prefix}-dots`);
+        const prevBtn = document.getElementById(`review-${prefix}-prev`);
+        const nextBtn = document.getElementById(`review-${prefix}-next`);
+        
+        if (!titleEl || !textEl || !dotsWrap) return;
+
+        let currentIndex = 0;
+        let timer;
+
+        function render() {
+            const current = reviewsData[currentIndex];
+            titleEl.textContent = current.title;
+            textEl.textContent = current.text;
+            if(metaEl) metaEl.textContent = current.meta;
+
+            dotsWrap.querySelectorAll('.review-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
         }
 
-        window.addEventListener('scroll', () => { lastScrollTime = Date.now(); });
+        function next() {
+            currentIndex = (currentIndex + 1) % reviewsData.length;
+            render();
+        }
 
-        const checkTimer = setInterval(() => {
-            if (popupShown) { clearInterval(checkTimer); return; }
-            const timeOnPage = Date.now() - pageLoadTime;
-            const timeSinceLastScroll = Date.now() - lastScrollTime;
+        function prev() {
+            currentIndex = (currentIndex - 1 + reviewsData.length) % reviewsData.length;
+            render();
+        }
 
-            if (timeOnPage >= 20000 && timeSinceLastScroll >= 4000) {
-                showExitPopup();
-                clearInterval(checkTimer);
-            }
-        }, 2000);
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(next, 6000);
+        }
 
-        document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 0) { showExitPopup(); }
+        dotsWrap.innerHTML = '';
+        reviewsData.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'review-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Отзыв ${index + 1}`);
+            dot.onclick = () => {
+                currentIndex = index;
+                render();
+                startTimer();
+            };
+            dotsWrap.appendChild(dot);
         });
-    </script>
-</body>
-</html>
+
+        if (prevBtn) prevBtn.onclick = () => { prev(); startTimer(); };
+        if (nextBtn) nextBtn.onclick = () => { next(); startTimer(); };
+
+        // Свайп для мобилок
+        let touchStartX = 0;
+        const carouselNode = document.getElementById(`reviews-carousel-${prefix}`);
+        if (carouselNode) {
+            carouselNode.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                clearInterval(timer);
+            }, {passive: true});
+            
+            carouselNode.addEventListener('touchend', e => {
+                let touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 40) { next(); }
+                if (touchEndX - touchStartX > 40) { prev(); }
+                startTimer();
+            }, {passive: true});
+        }
+
+        render();
+        startTimer();
+    }
+
+    initReviews('desktop');
+    initReviews('mobile');
+
+</script>

@@ -57,9 +57,82 @@
         .case-slider .case-nav {
             pointer-events: auto;
         }
+
+        /* Маркеры секций и подсветка текущего блока */
+        .section-kicker {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8d5f4a;
+            background: #f3e5de;
+            border: 1px solid #e9d4c8;
+        }
+        .section-kicker-dark {
+            color: #dcbfae;
+            background: rgba(192, 130, 103, 0.16);
+            border-color: rgba(192, 130, 103, 0.4);
+        }
+        .content-section {
+            position: relative;
+            transition: box-shadow 320ms ease;
+        }
+        .content-section.section-active {
+            box-shadow: inset 0 0 0 1px rgba(192, 130, 103, 0.35);
+        }
+        .content-section.section-dark.section-active {
+            box-shadow: inset 0 0 0 1px rgba(220, 191, 174, 0.4);
+        }
+        #read-progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            z-index: 60;
+            background: rgba(45, 42, 38, 0.12);
+            pointer-events: none;
+        }
+        #read-progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #c08267 0%, #a36851 100%);
+            transition: width 100ms linear;
+        }
+        .review-quote {
+            min-height: 7.5rem;
+        }
+        .review-quote-mobile {
+            min-height: 5.5rem;
+        }
+        .review-dot {
+            width: 0.625rem;
+            height: 0.625rem;
+            border-radius: 9999px;
+            background: #d1d5db;
+            transition: background-color 200ms ease, transform 200ms ease;
+        }
+        .review-dot.active {
+            background: #c08267;
+            transform: scale(1.08);
+        }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden">
+<body class="font-sans text-gray-800 bg-gray-50 antialiased overflow-x-hidden pb-24 sm:pb-20">
+    <div id="read-progress-track" aria-hidden="true">
+        <div id="read-progress-bar"></div>
+    </div>
+    <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-1rem)] max-w-sm sm:max-w-md lg:max-w-lg">
+        <a href="#request" class="block text-center !bg-[#2d2a26] hover:!bg-[#c08267] !text-white font-bold py-3 px-5 rounded-full shadow-xl shadow-black/20 transition duration-200 text-sm sm:text-base">
+            Получить бесплатную консультацию
+        </a>
+    </div>
 
     <!-- Навигация -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm transition-all duration-300">
@@ -124,7 +197,7 @@
                     <span class="!text-[#c08267]">Меблировка</span> студий и квартир под ключ для жизни и сдачи в аренду за 45 дней.
                 </h1>
                 <p class="text-sm sm:text-base lg:text-lg text-gray-200 mb-5 lg:mb-8 max-w-2xl leading-relaxed">
-                    Упакуем в готовый арендный бизнес или обустроим для комфортной жизни. Специализируемся на компактных площадях (19-25 м²). Продумаем эргономику, уместим всё необходимое (даже посудомоечную машину и двуспальную кровать) и закупим мебель.
+                    Меблировка квартиры под ключ в Москве: Продумаем эргономику, упакуем объект мебелью и техникой и поможем сдать его дороже рынка.
                 </p>
                 <ul class="space-y-2.5 lg:space-y-4 mb-8 lg:mb-0 text-gray-300">
                     <li class="flex items-start gap-2.5 sm:gap-3">
@@ -160,9 +233,10 @@
     </section>
 
     <!-- БЛОК 2: Боли аудитории -->
-    <section class="py-12 lg:py-20 bg-white">
+    <section class="content-section py-12 lg:py-20 bg-[#fdf9f6]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Проблема</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-4">Купили квартиру для сдачи, но ремонт превращается во вторую работу?</h2>
             </div>
 
@@ -206,9 +280,10 @@
     </section>
 
     <!-- БЛОК 3: Услуги -->
-    <section id="services" class="py-12 lg:py-20 bg-gray-50 border-t border-gray-200">
+    <section id="services" class="content-section py-12 lg:py-20 bg-white border-t border-[#f0e6df]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Услуги</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-3 lg:mb-4">Берем на себя 100% рутины</h2>
                 <p class="text-sm sm:text-base lg:text-xl !text-[#000000] opacity-80">От закупки техники до подписания договора с жильцом.</p>
             </div>
@@ -255,9 +330,12 @@
     </section>
 
     <!-- БЛОК 4: Преимущества -->
-    <section class="py-12 lg:py-20 bg-white">
+    <section class="content-section py-12 lg:py-20 bg-[#f7f2ee]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-12 lg:mb-16 text-center fade-up">Почему инвесторы доверяют свои объекты KEYFORT?</h2>
+            <div class="text-center mb-12 lg:mb-16 fade-up">
+                <span class="section-kicker mb-3">Преимущества</span>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000]">Почему инвесторы доверяют свои объекты KEYFORT?</h2>
+            </div>
             
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-10 lg:gap-y-16">
                 <!-- Пункт 1 -->
@@ -313,9 +391,10 @@
     </section>
 
     <!-- БЛОК 5: Как мы работаем (График) -->
-    <section id="steps" class="py-12 lg:py-20 bg-gray-50 border-t border-gray-200">
+    <section id="steps" class="content-section py-12 lg:py-20 bg-white border-t border-[#f0e6df]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Процесс</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-3 lg:mb-4">Прозрачный процесс работы</h2>
                 <p class="text-sm sm:text-base lg:text-xl !text-[#000000] opacity-80">Системный подход: от передачи ключей до первых показов за 45 дней.</p>
             </div>
@@ -369,9 +448,10 @@
     </section>
 
     <!-- БЛОК 6: Тарифы и цены -->
-    <section id="tariffs" class="py-12 lg:py-20 bg-white">
+    <section id="tariffs" class="content-section py-12 lg:py-20 bg-[#fdf9f6]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Тарифы</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-3 lg:mb-4">Тарифы и стоимость комплектации</h2>
                 <p class="text-sm sm:text-base lg:text-xl !text-[#000000] opacity-80">Открытые цифры. Никаких сюрпризов в процессе работы.</p>
             </div>
@@ -457,11 +537,11 @@
     </section>
 
     <!-- БЛОК 7: Каталог -->
-    <section class="py-12 lg:py-20 !bg-[#2d2a26]">
+    <section class="content-section section-dark py-12 lg:py-20 !bg-[#2d2a26]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white/5 border border-white/10 rounded-3xl p-6 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 fade-up">
                 <div class="w-full lg:w-1/2">
-                    <div class="inline-block bg-[#c08267]/20 !text-[#d19c86] px-3 lg:px-4 py-1 lg:py-1.5 rounded-full font-semibold text-xs mb-4 border border-[#c08267]/30">Тариф «Стандарт»</div>
+                    <div class="section-kicker section-kicker-dark mb-4">Тариф «Стандарт»</div>
                     <h2 class="text-2xl lg:text-4xl font-bold text-white mb-3 lg:mb-5">Выберите стиль вашей будущей квартиры</h2>
                     <p class="text-gray-300 text-sm lg:text-lg mb-6 lg:mb-8 leading-relaxed">
                         Мы разработали каталог готовых функциональных концепций. Он поможет вам сориентироваться по стилю, мебели и выбрать оптимальный вариант под ваш бюджет.
@@ -481,9 +561,10 @@
     </section>
 
     <!-- БЛОК 8: Кейсы -->
-    <section id="cases" class="py-12 lg:py-20 bg-gray-50">
+    <section id="cases" class="content-section py-12 lg:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Кейсы</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-2 lg:mb-4">Реализованные проекты</h2>
                 <p class="text-sm lg:text-xl !text-[#000000] opacity-80">Компактно, функционально и без лишних трат.</p>
             </div>
@@ -623,7 +704,7 @@
             </div>
 
             <div class="text-center fade-up">
-                <button class="border-2 !border-[#2d2a26] !text-[#000000] font-bold py-2.5 px-6 lg:py-3 lg:px-8 rounded-lg hover:!bg-[#2d2a26] hover:!text-white transition duration-200 mb-5 text-xs sm:text-sm lg:text-base w-full sm:w-auto">Смотреть еще больше наших кейсов</button>
+                <a href="https://t.me/flipping_msk" target="_blank" rel="noopener noreferrer" class="inline-block border-2 !border-[#2d2a26] !text-[#000000] font-bold py-2.5 px-6 lg:py-3 lg:px-8 rounded-lg hover:!bg-[#2d2a26] hover:!text-white transition duration-200 mb-5 text-xs sm:text-sm lg:text-base w-full sm:w-auto">Смотреть еще больше наших кейсов</a>
                 <br>
                 <div class="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 bg-white px-4 sm:px-5 py-3 sm:py-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition text-center sm:text-left">
                     <div class="!text-[#c08267]">
@@ -631,7 +712,11 @@
                     </div>
                     <div>
                         <p class="font-bold !text-[#000000] text-xs sm:text-sm lg:text-base">Хотите увидеть процесс изнутри?</p>
-                        <p class="text-[10px] sm:text-xs lg:text-sm !text-[#000000] opacity-80">Подробные видеообзоры на YouTube и ВК-видео</p>
+                        <p class="text-[10px] sm:text-xs lg:text-sm !text-[#000000] opacity-80">Подробные видеообзоры на YouTube и в Telegram</p>
+                        <div class="mt-1.5 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-[10px] sm:text-[11px] !text-[#000000] opacity-75 leading-snug">
+                            <p>TG: <a href="https://t.me/flipping_msk" target="_blank" rel="noopener noreferrer" class="text-[#0f6fba] hover:underline">t.me/flipping_msk</a></p>
+                            <p>YT: <a href="https://www.youtube.com/@voloskov" target="_blank" rel="noopener noreferrer" class="text-[#0f6fba] hover:underline">youtube.com/@voloskov</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -639,7 +724,7 @@
     </section>
 
     <!-- БЛОК 9: О нас / Экспертность -->
-    <section id="about" class="py-12 lg:py-20 bg-white">
+    <section id="about" class="content-section py-12 lg:py-20 bg-[#f8f3ef]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
                 <div class="w-full lg:w-1/2 relative fade-up max-w-sm mx-auto lg:max-w-none">
@@ -647,6 +732,7 @@
                     <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/photo_2026-02-18_09-31-33.jpg" alt="Роман Волосков" class="rounded-2xl shadow-xl w-full object-cover aspect-square sm:aspect-[4/5] lg:aspect-auto" onerror="this.src='https://via.placeholder.com/800x1000?text=[Image+of+Роман+Волосков]'">
                 </div>
                 <div class="w-full lg:w-1/2 fade-up delay-100">
+                    <span class="section-kicker mb-3">Экспертность</span>
                     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-4 lg:mb-6 text-center lg:text-left">Знаем, как сделать так, чтобы квартира приносила максимум денег.</h2>
                     
                     <div class="prose prose-sm lg:prose-lg !text-[#000000] opacity-80">
@@ -662,45 +748,65 @@
     </section>
 
     <!-- БЛОК 10: Отзывы -->
-    <section id="reviews" class="py-12 lg:py-20 bg-gray-50 border-t border-gray-200">
+    <section id="reviews" class="content-section py-12 lg:py-20 bg-white border-t border-[#f0e6df]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14 fade-up">
+                <span class="section-kicker mb-3">Отзывы</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-2 lg:mb-4">Что говорят те, кто уже получает пассивный доход вместе с нами</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
-                <!-- Отзыв 1 -->
-                <div class="bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-gray-100 fade-up">
-                    <div class="flex !text-[#c08267] mb-3 lg:mb-4">
+            <div id="reviews-carousel-mobile" class="max-w-md mx-auto fade-up sm:hidden">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 select-none">
+                    <div class="flex !text-[#c08267] mb-3" aria-hidden="true">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <h4 id="review-mobile-title" class="text-sm font-bold !text-[#000000] mb-2"></h4>
+                    <p id="review-mobile-text" class="review-quote-mobile text-xs !text-[#000000] opacity-80 italic"></p>
+                    <p id="review-mobile-meta" class="mt-2 text-[10px] !text-[#000000] opacity-60"></p>
+                    <p class="mt-2 text-[10px] !text-[#000000] opacity-45">Свайп влево/вправо</p>
+                </div>
+                <div class="mt-3 flex justify-center">
+                    <div id="review-mobile-dots" class="flex items-center gap-1.5"></div>
+                </div>
+            </div>
+
+            <div id="reviews-carousel-desktop" class="max-w-4xl mx-auto fade-up hidden sm:block">
+                <div class="bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex !text-[#c08267] mb-3 lg:mb-4" aria-hidden="true">
                         <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     </div>
-                    <h4 class="text-base lg:text-xl font-bold !text-[#000000] mb-2 lg:mb-3">«Сдали быстро и за максимальную цену!»</h4>
-                    <p class="text-xs lg:text-base !text-[#000000] opacity-80 italic">«Выражаю благодарность команде стейджеров за отличную работу и скорость! Всё получилось великолепно, фото не передают. Квартиру сдали быстро и за максимальную цену!»</p>
+                    <h4 id="review-desktop-title" class="text-base lg:text-xl font-bold !text-[#000000] mb-2 lg:mb-3"></h4>
+                    <p id="review-desktop-text" class="review-quote text-xs lg:text-base !text-[#000000] opacity-80 italic"></p>
+                    <p id="review-desktop-meta" class="mt-3 text-[10px] sm:text-xs !text-[#000000] opacity-60"></p>
                 </div>
 
-                <!-- Отзыв 2 -->
-                <div class="bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-gray-100 fade-up delay-100">
-                    <div class="flex !text-[#c08267] mb-3 lg:mb-4">
-                        <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 lg:w-5 lg:h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    </div>
-                    <h4 class="text-base lg:text-xl font-bold !text-[#000000] mb-2 lg:mb-3">«Оперативная упаковка за 3 недели»</h4>
-                    <p class="text-xs lg:text-base !text-[#000000] opacity-80 italic">«Вся работа от передачи ключей до арендатора — 3 недели, супер быстро и качественно! Огромная благодарность Роману, Марине, Диларе, Александру за упаковку!»</p>
+                <div class="mt-4 flex items-center justify-between gap-3">
+                    <button id="review-desktop-prev" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition" aria-label="Предыдущий отзыв">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div id="review-desktop-dots" class="flex items-center gap-1.5"></div>
+                    <button id="review-desktop-next" type="button" class="w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-100 !text-[#2d2a26] flex items-center justify-center transition" aria-label="Следующий отзыв">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- БЛОК 11: FAQ -->
-    <section id="faq" class="py-12 lg:py-20 bg-white fade-up">
+    <section id="faq" class="content-section py-12 lg:py-20 bg-[#fcf7f4] fade-up">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <span class="section-kicker mb-3">FAQ</span>
+            </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold !text-[#000000] mb-8 lg:mb-10 text-center">Отвечаем на популярные вопросы</h2>
             
             <div class="space-y-3 lg:space-y-4">
@@ -763,12 +869,14 @@
     </section>
 
     <!-- БЛОК 12: Подвал / Форма -->
-    <section id="contacts" class="py-12 lg:py-20 !bg-[#2d2a26] relative fade-up">
+    <section id="request" class="content-section section-dark py-12 lg:py-20 !bg-[#2d2a26] relative fade-up scroll-mt-24">
+        <div id="contacts"></div>
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <svg class="absolute -right-40 -top-40 w-[50rem] h-[50rem] text-white opacity-5" fill="currentColor" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
         </div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-8 lg:mb-10">
+                <span class="section-kicker section-kicker-dark mb-3">Старт</span>
                 <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-white mb-3 lg:mb-5">Готовы превратить вашу квартиру в магнит для арендаторов?</h2>
                 <p class="text-sm lg:text-xl text-gray-300">Нажмите на кнопку ниже. Мы бесплатно проконсультируем вас.</p>
             </div>
@@ -972,7 +1080,312 @@
 
         initCaseSliders();
 
-        // 4. Exit-Intent и Timed Pop-up
+        // 3.5 Карусель отзывов
+        function initReviewsCarousel() {
+            const reviews = [
+                {
+                    title: 'Студия 20 м²: заселили за 3 недели',
+                    text: '«От старта упаковки до заселения арендатора прошло 3 недели. Квартира в ЖК Митинский Лес сдалась с первого показа.»',
+                    meta: 'ЖК Митинский Лес • Январь 2025 • ID 1038'
+                },
+                {
+                    title: 'Повторная сдача за 2 недели',
+                    text: '«После съезда жильцов квартиру снова сдали за 2 недели: было несколько кандидатов, выбрали самого надежного.»',
+                    meta: 'Москва • Март 2025 • ID 1191'
+                },
+                {
+                    title: '“Оправдали ожидания на 150%”',
+                    text: '«По словам заказчика, результат превзошел ожидания: в студии 20 м² разместили полный набор техники и два шкафа.»',
+                    meta: 'Студия 20 м² • Май 2024 • ID 621'
+                },
+                {
+                    title: 'Студия сдана за 55 000 ₽',
+                    text: '«Быстро и бюджетно упаковали студию в ЖК Кронштадтский 14. Квартира “улетела” в аренду за 55 000 ₽.»',
+                    meta: 'ЖК Кронштадтский 14 • Май 2024 • ID 609'
+                },
+                {
+                    title: 'Евро-2 в апартаментах без переплат',
+                    text: '«В ЖК Волоколамское 24 аккуратно обошли сложную геометрию стен и сделали стильную евро-2 в рамках бюджета.»',
+                    meta: 'ЖК Волоколамское 24 • Март 2024 • ID 549'
+                },
+                {
+                    title: 'Функциональная студия 27 м²',
+                    text: '«Уместили двуспальную кровать, диван, рабочее место и большую кухню со встроенной техникой. Заказчик доволен.»',
+                    meta: 'ЖК Матвеевский Парк • Июль 2024 • ID 663'
+                },
+                {
+                    title: 'Сдали и подобрали надежных арендаторов',
+                    text: '«Бюджетно обустроили студию в ЖК Профит и закрыли задачу под ключ: от меблировки до подбора арендаторов.»',
+                    meta: 'ЖК Профит • Февраль 2025 • ID 1093'
+                },
+                {
+                    title: 'Евро-2 с продуманным хранением',
+                    text: '«В ЖК Аквилон Бисайд организовали достаточное хранение, обставили даже балкон и нашли приличного арендатора.»',
+                    meta: 'ЖК Аквилон Бисайд • Март 2025 • ID 1149'
+                },
+                {
+                    title: 'Green Park: максимум пользы в 37 м²',
+                    text: '«Упаковали евро-2 и выбрали платежеспособных арендаторов. Из решений особенно оценили скрытую гладильную доску.»',
+                    meta: 'ЖК Green Park • Ноябрь 2024 • ID 865'
+                },
+                {
+                    title: 'Полная комплектация за 370 000 ₽',
+                    text: '«Даже со скромным бюджетом в студии есть всё необходимое: полноценная кровать, ПММ, духовой шкаф и кондиционер.»',
+                    meta: 'ЖК Авиатика • Март 2024 • ID 568'
+                },
+                {
+                    title: 'Удаленно, без потери качества',
+                    text: '«Собственник не в Москве, проект вели полностью удаленно: реализовали акцентный дизайн и сдали объект в аренду.»',
+                    meta: 'Евро-2, 36 м² • Август 2024 • ID 684'
+                },
+                {
+                    title: 'Евро-3 “с вау-эффектом”',
+                    text: '«Квартиру в Матвеевском Парке обустроили так, чтобы арендаторы влюблялись с порога: современно, стильно и продумано.»',
+                    meta: 'ЖК Матвеевский Парк • Апрель 2025 • ID 1232'
+                }
+            ];
+
+            function initDesktopCarousel() {
+                const carousel = document.getElementById('reviews-carousel-desktop');
+                const titleEl = document.getElementById('review-desktop-title');
+                const textEl = document.getElementById('review-desktop-text');
+                const metaEl = document.getElementById('review-desktop-meta');
+                const prevBtn = document.getElementById('review-desktop-prev');
+                const nextBtn = document.getElementById('review-desktop-next');
+                const dotsWrap = document.getElementById('review-desktop-dots');
+
+                if (!carousel || !titleEl || !textEl || !metaEl || !dotsWrap) return;
+
+                let currentIndex = 0;
+                let autoplayTimer = null;
+
+                function renderReview() {
+                    const current = reviews[currentIndex];
+                    titleEl.textContent = current.title;
+                    textEl.textContent = current.text;
+                    metaEl.textContent = current.meta;
+
+                    dotsWrap.querySelectorAll('button').forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+
+                function stopAutoplay() {
+                    if (!autoplayTimer) return;
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+
+                function startAutoplay() {
+                    if (reviews.length < 2) return;
+                    autoplayTimer = setInterval(() => {
+                        currentIndex = (currentIndex + 1) % reviews.length;
+                        renderReview();
+                    }, 6000);
+                }
+
+                function restartAutoplay() {
+                    stopAutoplay();
+                    startAutoplay();
+                }
+
+                dotsWrap.innerHTML = '';
+                reviews.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = index === 0 ? 'review-dot active' : 'review-dot';
+                    dot.setAttribute('aria-label', `Отзыв ${index + 1}`);
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        renderReview();
+                        restartAutoplay();
+                    });
+                    dotsWrap.appendChild(dot);
+                });
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex + 1) % reviews.length;
+                        renderReview();
+                        restartAutoplay();
+                    });
+                }
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+                        renderReview();
+                        restartAutoplay();
+                    });
+                }
+
+                carousel.addEventListener('mouseenter', stopAutoplay);
+                carousel.addEventListener('mouseleave', startAutoplay);
+                carousel.addEventListener('touchstart', stopAutoplay, { passive: true });
+                carousel.addEventListener('touchend', startAutoplay);
+
+                renderReview();
+                startAutoplay();
+            }
+
+            function initMobileCarousel() {
+                const carousel = document.getElementById('reviews-carousel-mobile');
+                const titleEl = document.getElementById('review-mobile-title');
+                const textEl = document.getElementById('review-mobile-text');
+                const metaEl = document.getElementById('review-mobile-meta');
+                const dotsWrap = document.getElementById('review-mobile-dots');
+
+                if (!carousel || !titleEl || !textEl || !metaEl || !dotsWrap) return;
+
+                let currentIndex = 0;
+                let autoplayTimer = null;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                function renderReview() {
+                    const current = reviews[currentIndex];
+                    titleEl.textContent = current.title;
+                    textEl.textContent = current.text;
+                    metaEl.textContent = current.meta;
+
+                    dotsWrap.querySelectorAll('button').forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+
+                function goNext() {
+                    currentIndex = (currentIndex + 1) % reviews.length;
+                    renderReview();
+                }
+
+                function goPrev() {
+                    currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+                    renderReview();
+                }
+
+                function stopAutoplay() {
+                    if (!autoplayTimer) return;
+                    clearInterval(autoplayTimer);
+                    autoplayTimer = null;
+                }
+
+                function startAutoplay() {
+                    if (reviews.length < 2) return;
+                    autoplayTimer = setInterval(goNext, 6000);
+                }
+
+                function restartAutoplay() {
+                    stopAutoplay();
+                    startAutoplay();
+                }
+
+                dotsWrap.innerHTML = '';
+                reviews.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = index === 0 ? 'review-dot active' : 'review-dot';
+                    dot.setAttribute('aria-label', `Отзыв ${index + 1}`);
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        renderReview();
+                        restartAutoplay();
+                    });
+                    dotsWrap.appendChild(dot);
+                });
+
+                carousel.addEventListener('touchstart', (event) => {
+                    const touch = event.changedTouches && event.changedTouches[0];
+                    if (!touch) return;
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                    stopAutoplay();
+                }, { passive: true });
+
+                carousel.addEventListener('touchend', (event) => {
+                    const touch = event.changedTouches && event.changedTouches[0];
+                    if (!touch) {
+                        startAutoplay();
+                        return;
+                    }
+
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    const isHorizontalSwipe = Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY);
+
+                    if (isHorizontalSwipe) {
+                        if (deltaX < 0) {
+                            goNext();
+                        } else {
+                            goPrev();
+                        }
+                    }
+
+                    restartAutoplay();
+                }, { passive: true });
+
+                renderReview();
+                startAutoplay();
+            }
+
+            initDesktopCarousel();
+            initMobileCarousel();
+        }
+
+        initReviewsCarousel();
+
+        // 4. Прогресс чтения и активный блок
+        const progressBar = document.getElementById('read-progress-bar');
+        const readingSections = Array.from(document.querySelectorAll('.content-section'));
+        let activeSection = null;
+        let readingTicking = false;
+
+        function updateReadingState() {
+            const scrollTop = window.scrollY || window.pageYOffset;
+            const maxScrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScrollable > 0 ? (scrollTop / maxScrollable) * 100 : 0;
+            if (progressBar) {
+                progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+            }
+
+            if (!readingSections.length) return;
+
+            const focusY = scrollTop + window.innerHeight * 0.45;
+            let currentSection = null;
+
+            for (const section of readingSections) {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                if (focusY >= top && focusY < bottom) {
+                    currentSection = section;
+                    break;
+                }
+            }
+
+            if (!currentSection) {
+                currentSection = readingSections[readingSections.length - 1];
+            }
+
+            if (currentSection !== activeSection) {
+                if (activeSection) activeSection.classList.remove('section-active');
+                currentSection.classList.add('section-active');
+                activeSection = currentSection;
+            }
+        }
+
+        function scheduleReadingStateUpdate() {
+            if (readingTicking) return;
+            readingTicking = true;
+            requestAnimationFrame(() => {
+                updateReadingState();
+                readingTicking = false;
+            });
+        }
+
+        window.addEventListener('scroll', scheduleReadingStateUpdate, { passive: true });
+        window.addEventListener('resize', scheduleReadingStateUpdate);
+        updateReadingState();
+
+        // 5. Exit-Intent и Timed Pop-up
         let popupShown = sessionStorage.getItem('exitPopupShown');
         let lastScrollTime = Date.now();
         const pageLoadTime = Date.now();

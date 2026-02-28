@@ -51,6 +51,9 @@
         .delay-300 { transition-delay: 300ms; }
 
         /* Слайдер в карточках кейсов */
+        .case-slider {
+            aspect-ratio: 1 / 1;
+        }
         .case-slider .case-nav {
             pointer-events: auto;
         }
@@ -486,11 +489,11 @@
             <div class="grid md:grid-cols-2 gap-6 lg:gap-8 mb-8 lg:mb-12">
                 <!-- Кейс 1 (Матвеевский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
-                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
+                    <div class="case-slider overflow-hidden relative bg-gray-100"
                          data-images="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_2_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_3_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_4_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_5_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_6_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_7_2026-02-28_11-15-29.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_8_2026-02-28_11-15-29.jpg"
                          data-alt="Студия ЖК Матвеевский парк"
                          data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]">
-                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg" alt="Студия ЖК Матвеевский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]'">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/matveevskiy/photo_1_2026-02-28_11-15-29.jpg" alt="Студия ЖК Матвеевский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Уютная+студия+20м2]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -519,11 +522,11 @@
 
                 <!-- Кейс 2 (Никольские луга) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
-                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
-                         data-images="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    <div class="case-slider overflow-hidden relative bg-gray-100"
+                         data-images="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_1_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_2_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_3_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_4_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_5_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_6_2026-02-28_11-24-11.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_7_2026-02-28_11-24-11.jpg"
                          data-alt="Студия ЖК Никольские луга"
                          data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]">
-                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Никольские луга" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]'">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Nikolskie/photo_1_2026-02-28_11-24-11.jpg" alt="Студия ЖК Никольские луга" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Компактная+функциональная+студия]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -552,11 +555,11 @@
                 
                 <!-- Кейс 3 (Амурский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up hover:-translate-y-1">
-                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
-                         data-images="https://images.unsplash.com/photo-1502672260266-1c1de2d96674?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    <div class="case-slider overflow-hidden relative bg-gray-100"
+                         data-images="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_1_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_2_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_3_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_4_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_5_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_6_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_7_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_8_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_9_2026-02-28_11-26-47.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_10_2026-02-28_11-26-47.jpg"
                          data-alt="Студия ЖК Амурский парк"
                          data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Студия]">
-                        <img src="https://images.unsplash.com/photo-1502672260266-1c1de2d96674?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студия ЖК Амурский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Студия]'">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Amurskiy/photo_1_2026-02-28_11-26-47.jpg" alt="Студия ЖК Амурский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Студия]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -585,11 +588,11 @@
 
                 <!-- Кейс 4 (Михайловский парк) -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 group fade-up delay-100 hover:-translate-y-1">
-                    <div class="case-slider h-48 sm:h-56 lg:h-64 overflow-hidden relative"
-                         data-images="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    <div class="case-slider overflow-hidden relative bg-gray-100"
+                         data-images="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_2_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_3_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_4_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_5_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_6_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_7_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_8_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_9_2026-02-28_11-27-43.jpg|https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_10_2026-02-28_11-27-43.jpg"
                          data-alt="Евро-2 ЖК Михайловский парк"
                          data-fallback="https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]">
-                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Евро-2 ЖК Михайловский парк" class="case-slider-image w-full h-full object-cover group-hover:scale-105 transition duration-700" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]'">
+                        <img src="https://raw.githubusercontent.com/invizibl77/Meblirovka/main/assets/img/Mihaylovskiy/photo_1_2026-02-28_11-27-43.jpg" alt="Евро-2 ЖК Михайловский парк" class="case-slider-image w-full h-full object-contain transition duration-500" onerror="this.src='https://via.placeholder.com/800x600?text=[Image+of+Евро-2+светлая+кухня]'">
                         <div class="absolute top-3 left-3 lg:top-4 lg:left-4 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold !text-[#000000]">Упаковка под ключ</div>
                         <button type="button" class="case-nav prev absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/35 hover:bg-black/55 text-white flex items-center justify-center transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100" aria-label="Предыдущее фото">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
